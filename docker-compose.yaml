@@ -1,0 +1,22 @@
+version: '3.4'
+services: 
+    backend_node:
+        build: ./backend
+        command: node app
+        volumes: 
+          - "./backend:/usr/src/app"
+        ports: "4008:4007"
+        networks: 
+            -myytnetwork
+
+    neo4j:
+        image: neo4j:3.5
+        ports: 
+            - "17475:7474"
+            - "7688:7687"
+        networks: 
+            - myytnetwork
+        
+networks: 
+    myytnetwork:
+        driver: bridge
