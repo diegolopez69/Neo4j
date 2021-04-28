@@ -5,5 +5,5 @@ const app = express();
 app.listen(4007);
 
 app.get('/', function(req, res){
-    res.send("Ya funciona");
+    res.send("Ya funciona, este es node con express");
 });
