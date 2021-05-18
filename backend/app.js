@@ -4,6 +4,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 let neo4j = require('neo4j-driver');
 
+const rabbitPublisher = require('./services/rabbit.publisher.service');
 const app = express ();
 
 //view Engine
@@ -20,6 +21,10 @@ let driver = neo4j.driver('bolt://localhost', neo4j.auth.basic('neo4j', 'test'))
 let session = driver.session();
 
 
+app.get('/paniTest', function(req, res){
+    console.log(rabbitPublisher);
+    res.send("ok")
+});
 app.get('/', function(req, res){
     session
         .run('MATCH(n:competicion) RETURN n LIMIT 25')
@@ -87,6 +92,7 @@ app.post('/jugador/add',function(req, res){
     session8
         .run('CREATE(n:jugador {nombre:{nombreJugadorParam}}) RETURN n.nombre', {nombreJugadorParam:nombreJugador})
         .then(function(result){
+            rabbitPublisher.publishMessage('Evento enviado');
             res.redirect('/');
             session8.close();
         })
@@ -107,6 +113,7 @@ app.post('/equipo/add',function(req, res){
     session2
         .run('CREATE(n:equipo {nombre:{nombreEquipoParam}}) RETURN n.nombre', {nombreEquipoParam:nombreEquipo})
         .then(function(result){
+            rabbitPublisher.publishMessage('Equipo añadido');
             res.redirect('/');
             session2.close();
         })
