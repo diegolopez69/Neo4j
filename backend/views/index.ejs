@@ -1,3 +1,13 @@
+<h1>Agregar un jugador</h1>
+<form method="post" action="/jugador/add" >
+    <label>Agregar jugador</label><br>
+    <input type="text" name="nombre">
+    <br><br>
+    <input type="submit" value="Submit">
+    <br><br>
+</form>
+
+
 <h1>Agregar un equipo</h1>
 <form method="post" action="/equipo/add" >
     <label>Agregar equipo</label><br>
@@ -30,6 +40,22 @@
     <input type="submit" value="Submit">
     <br><br>
 </form>
+
+
+
+<h1>Relacionar un jugador a un equipo</h1>
+<form method="post" action="/jugador/equipo/add" >
+    <label>Agregar equipo</label><br>
+    <input type="text" name="nombreEquipo">
+    <br><br>
+    <label>Agregar jugador</label><br>
+    <input type="text" name="nombreJugador">
+    <br><br>
+    <input type="submit" value="Submit">
+    <br><br>
+</form>
+
+
 
 
 <h3>Equipos</h3>

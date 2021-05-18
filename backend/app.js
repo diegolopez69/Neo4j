@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-var neo4j = require('neo4j-driver');
+let neo4j = require('neo4j-driver');
 
 const app = express ();
 
@@ -16,15 +16,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-var driver = neo4j.driver('bolt://localhost', neo4j.auth.basic('neo4j', 'test'));
-var session = driver.session();
+let driver = neo4j.driver('bolt://localhost', neo4j.auth.basic('neo4j', 'test'));
+let session = driver.session();
 
 
 app.get('/', function(req, res){
     session
         .run('MATCH(n:competicion) RETURN n LIMIT 25')
         .then(function(result){
-            var competicionArr = [];
+            let competicionArr = [];
             result.records.forEach(function(record){
                 competicionArr.push({
                     id: record._fields[0].identity.low,
@@ -35,7 +35,7 @@ app.get('/', function(req, res){
             session
                 .run('MATCH(n:equipo) RETURN n LIMIT 25')
                 .then(function(result2){
-                    var equipoArr = [];
+                    let equipoArr = [];
                     result2.records.forEach(function(record){
                         equipoArr.push({
                             id: record._fields[0].identity.low,
@@ -44,7 +44,28 @@ app.get('/', function(req, res){
                     });
                     res.render('index', {
                         competiciones: competicionArr,
-                        equipos: equipoArr
+                        equipos: equipoArr,
+                                                
+                    });
+                })
+                .catch(function(err){
+                    console.log(err);
+                });
+
+                session
+                .run('MATCH(n:jugador) RETURN n LIMIT 25')
+                .then(function(result3){
+                    let jugadorArr = [];
+                    result3.records.forEach(function(record){
+                        jugadorArr.push({
+                            id: record._fields[0].identity.low,
+                            nombre: record._fields[0].properties.nombre
+                        });
+                    });
+                    res.render('index', {
+                        competiciones: competicionArr,
+                        equipos: equipoArr,
+                        jugadores: jugadorArr
                     });
                 })
                 .catch(function(err){
@@ -58,11 +79,30 @@ app.get('/', function(req, res){
 
 
 
+//Para agregar jugadores
+let session8 = driver.session();
+app.post('/jugador/add',function(req, res){
+    let nombreJugador = req.body.nombre;
+
+    session8
+        .run('CREATE(n:jugador {nombre:{nombreJugadorParam}}) RETURN n.nombre', {nombreJugadorParam:nombreJugador})
+        .then(function(result){
+            res.redirect('/');
+            session8.close();
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+
+    res.redirect('/');
+})
+
+
 
 //Para agregar un equipo
-var session2 = driver.session();
+let session2 = driver.session();
 app.post('/equipo/add',function(req, res){
-    var nombreEquipo = req.body.nombre;
+    let nombreEquipo = req.body.nombre;
 
     session2
         .run('CREATE(n:equipo {nombre:{nombreEquipoParam}}) RETURN n.nombre', {nombreEquipoParam:nombreEquipo})
@@ -79,9 +119,9 @@ app.post('/equipo/add',function(req, res){
 
 
 //Para agregar una competición
-var session3 = driver.session();
+let session3 = driver.session();
 app.post('/competicion/add',function(req, res){
-    var nombreCompeticion = req.body.nombre;
+    let nombreCompeticion = req.body.nombre;
 
     session3
         .run('CREATE(n:competicion {nombre:{nombreCompeticionParam}}) RETURN n.nombre', {nombreCompeticionParam:nombreCompeticion})
@@ -96,11 +136,11 @@ app.post('/competicion/add',function(req, res){
     res.redirect('/');
 })
 
-//Para relacionar los nodos
-var session4 = driver.session();
+//Para relacionar competicion-equipo
+let session4 = driver.session();
 app.post('/competicion/equipo/add',function(req, res){
-    var nombreCompeticion = req.body.nombreCompeticion;    
-    var nombreEquipo = req.body.nombreEquipo;
+    let nombreCompeticion = req.body.nombreCompeticion;    
+    let nombreEquipo = req.body.nombreEquipo;
 
     console.log({nombreCompeticion});
     console.log({nombreEquipo});
@@ -115,10 +155,28 @@ app.post('/competicion/equipo/add',function(req, res){
     res.redirect('/');
 })
 
+//Para relacionar equipo-jugador
+let session9 = driver.session();
+app.post('/jugador/equipo/add',function(req, res){ 
+    let nombreEquipo = req.body.nombreEquipo;
+    let nombreJugador = req.body.nombreJugador;
+    
+
+    session9
+        .run('MATCH(a:jugador {nombre:{nombreJugadorParam}}), (b:equipo {nombre:{nombreEquipoParam}}) MERGE (a)-[r:JUEGA_EN]-(b) RETURN a,b', {nombreJugadorParam: nombreJugador, nombreEquipoParam: nombreEquipo})
+        .then(function(result){
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+
+    res.redirect('/');
+})
+
 //Para eliminar un equipo
-var session5 = driver.session();
+let session5 = driver.session();
 app.post('/competicion/borrar',function(req, res){
-    var nombreEquipo = req.body.nombre;
+    let nombreEquipo = req.body.nombre;
 
     session5
         .run('MATCH(n:equipo {nombre:{nombreEquipoParam}}) DETACH DELETE n.nombre', {nombreEquipoParam:nombreEquipo})
@@ -135,9 +193,9 @@ app.post('/competicion/borrar',function(req, res){
 
 
 //Para eliminar una competición
-var session6 = driver.session();
+let session6 = driver.session();
 app.post('/competicion/delete',function(req, res){
-    var nombreCompeticion = req.body.nombre;
+    let nombreCompeticion = req.body.nombre;
 
     session6
         .run('MATCH (n:competicion {nombre:{nombreCompeticionParam}}) DELETE n.nombre', {nombreCompeticionParam:nombreCompeticion})
@@ -154,9 +212,9 @@ app.post('/competicion/delete',function(req, res){
 
 
 //Para eliminar todos los nodos
-var session7 = driver.session();
+let session7 = driver.session();
 app.post('/borrar',function(req, res){
-    var nombreCompeticion = req.body.nombre;
+    let nombreCompeticion = req.body.nombre;
 
     session7
         .run('MATCH (n) DETACH DELETE n')
