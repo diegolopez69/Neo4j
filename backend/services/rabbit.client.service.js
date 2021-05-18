@@ -1,4 +1,6 @@
 const amqp = require('amqplib/callback_api');
+const {queueName} = require('./../constants');
+
 amqp.connect('amqp://localhost', function (error0, connection) {
     if (error0) {
         throw error0;
@@ -8,15 +10,13 @@ amqp.connect('amqp://localhost', function (error0, connection) {
             throw error1;
         }
 
-        var queue = 'Equipos';
-
-        channel.assertQueue(queue, {
+        channel.assertQueue(queueName, {
             durable: false
         });
 
-        console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
+        console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queueName);
 
-        channel.consume(queue, function (msg) {
+        channel.consume(queueName, function (msg) {
             console.log(" [x] Received %s", msg.content.toString());
         }, {
             noAck: true
