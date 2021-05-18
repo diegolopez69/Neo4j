@@ -1,12 +1,13 @@
 version: '3'
 services: 
   backend: 
-    build: ./backend
-    command: node app
+    build: 
+      context: backend
+      dockerfile: Dockerfile
     #volumes: 
      # - "./backend:/usr/src/app"
     ports:
-      - "3000:3000"
+      - "3000:3000" 
     networks:
       - myytnetwork
 
