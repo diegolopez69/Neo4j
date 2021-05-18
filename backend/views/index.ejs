@@ -1,9 +1,3 @@
-
-
-
-
-
-
 <!doctype html>
 <html>
     <head>
@@ -71,11 +65,11 @@
 
 <h1>Relacionar un jugador a un equipo</h1>
 <form method="post" action="/jugador/equipo/add" >
-    <label>Agregar equipo</label><br>
-    <input type="text" name="nombreEquipo">
-    <br><br>
     <label>Agregar jugador</label><br>
     <input type="text" name="nombreJugador">
+    <br><br>
+    <label>Agregar equipo</label><br>
+    <input type="text" name="nombreEquipo">
     <br><br>
     <input type="submit" value="Submit">
     <br><br>
@@ -149,21 +143,21 @@
             server_user: "neo4j",
             server_password: "test",
             labels: {
-                "Character": {
-                    "caption": "name",
-                    "size": "pagerank",
-                    "community": "community",
-                    "title_properties": [
-                        "name",
-                        "pagerank"
-                    ]
-                }
+                "equipo": {
+                    "caption": "nombre"
+                },
+                "jugador": {
+                    "caption": "nombre"
+                },
+                "competicion": {
+                    "caption": "nombre"
+                },
             },
             relationships: {
-                "INTERACTS": {
-                    "thickness": "weight",
-                    "caption": false
-                }
+                "COMPITE": {
+                        "thickness": "weight",
+                        "caption": false
+                    }
             },
             initial_cypher: "MATCH (n) RETURN n"
         };
