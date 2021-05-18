@@ -24,9 +24,9 @@ app.get('/', function(req, res){
     session
         .run('MATCH(n:competicion) RETURN n LIMIT 25')
         .then(function(result){
-            var movieArr = [];
+            var competicionArr = [];
             result.records.forEach(function(record){
-                movieArr.push({
+                competicionArr.push({
                     id: record._fields[0].identity.low,
                     nombre: record._fields[0].properties.nombre
                 });
@@ -35,16 +35,16 @@ app.get('/', function(req, res){
             session
                 .run('MATCH(n:equipo) RETURN n LIMIT 25')
                 .then(function(result2){
-                    var actorArr = [];
+                    var equipoArr = [];
                     result2.records.forEach(function(record){
-                        actorArr.push({
+                        equipoArr.push({
                             id: record._fields[0].identity.low,
                             nombre: record._fields[0].properties.nombre
                         });
                     });
                     res.render('index', {
-                        movies: movieArr,
-                        actors: actorArr
+                        competiciones: competicionArr,
+                        equipos: equipoArr
                     });
                 })
                 .catch(function(err){
