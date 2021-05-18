@@ -106,14 +106,7 @@ app.post('/competicion/equipo/add',function(req, res){
     console.log({nombreEquipo});
     session4
         .run('MATCH(a:equipo {nombre:{nombreEquipoParam}}), (b:competicion{nombre:{nombreCompeticionParam}}) MERGE (a)-[r:COMPITE]-(b) RETURN a,b', {nombreEquipoParam: nombreEquipo, nombreCompeticionParam :nombreCompeticion})
-       
-        // ` match (r:restaurant)-[]->(i:item) where r.id = $id
-        // with r,i
-        // match (i)-[]->(it:itemType)
-        // return r,i,it
-        // `
         .then(function(result){
-            //session4.close();
         })
         .catch(function(err){
             console.log(err);
