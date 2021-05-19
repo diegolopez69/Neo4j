@@ -3,6 +3,7 @@ const rabbitPublisher = require('../services/rabbit.publisher.service');
 let driver = neo4j.driver('bolt://localhost', neo4j.auth.basic('neo4j', 'test'));
 
 module.exports = {
+    //Añadir un equipo
     add: (req, res)=>{  
         let nombreEquipo = req.body.nombre;
         let session2 = driver.session();
@@ -19,6 +20,7 @@ module.exports = {
     
         res.redirect('/');
     },
+    //Borrar un equipo
     borrar:(req, res)=>{
         let nombreEquipo = req.body.nombre;
         let session5 = driver.session();

@@ -3,6 +3,7 @@ const rabbitPublisher = require('../services/rabbit.publisher.service');
 let driver = neo4j.driver('bolt://localhost', neo4j.auth.basic('neo4j', 'test'));
 
 module.exports = {
+    //Añadir una competición
     add: (req, res)=>{  
     let nombreCompeticion = req.body.nombre;
     let session3 = driver.session();
@@ -18,7 +19,7 @@ module.exports = {
 
     res.redirect('/');
     },
-
+    //Añadir una competición a un equipo
     addEquipo: (req, res)=>{  
         let session4 = driver.session();
         let nombreCompeticion = req.body.nombreCompeticion;    
@@ -34,11 +35,9 @@ module.exports = {
             .catch(function(err){
                 console.log(err);
             });
-
         res.redirect('/');
-            
         },
-
+        //Eliminar una competición
         delete: (req, res)=>{  
             let nombreCompeticion = req.body.nombre;
             let session6 = driver.session();
