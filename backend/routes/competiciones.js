@@ -5,6 +5,7 @@ const CompeticionesController = require('./../controllers/competicionesControlle
 
 router.post('/add',CompeticionesController.add);
 router.post('/equipo/add',CompeticionesController.addEquipo);
+router.post('/delete',CompeticionesController.addEquipo);
 
 // let session3 = driver.session();
 // router.post('/add',function(req, res){
@@ -44,10 +45,10 @@ router.post('/equipo/add',CompeticionesController.addEquipo);
 
 
 
-// let session6 = driver.session();
+
 // router.post('/delete',function(req, res){
 //     let nombreCompeticion = req.body.nombre;
-
+//     let session6 = driver.session();
 //     session6
 //         .run('MATCH (n:competicion {nombre:{nombreCompeticionParam}}) DELETE n.nombre', {nombreCompeticionParam:nombreCompeticion})
 //         .then(function(result){

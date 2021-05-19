@@ -37,5 +37,22 @@ module.exports = {
 
         res.redirect('/');
             
-        }    
+        },
+
+        delete: (req, res)=>{  
+            let nombreCompeticion = req.body.nombre;
+            let session6 = driver.session();
+            session6
+                .run('MATCH (n:competicion {nombre:{nombreCompeticionParam}}) DELETE n.nombre', {nombreCompeticionParam:nombreCompeticion})
+                .then(function(result){
+                    res.redirect('/');
+                    session6.close();
+                })
+                .catch(function(err){
+                    console.log(err);
+                });
+
+            res.redirect('/');
+                        
+            },
 }
