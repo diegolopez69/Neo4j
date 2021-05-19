@@ -10,6 +10,7 @@ module.exports = {
     session3
         .run('CREATE(n:competicion {nombre:{nombreCompeticionParam}}) RETURN n.nombre', {nombreCompeticionParam:nombreCompeticion})
         .then(function(result){
+            rabbitPublisher.publishMessage('Competición añadida');
             res.redirect('/');
             session3.close();
         })
@@ -31,6 +32,7 @@ module.exports = {
         session4
             .run('MATCH(a:equipo {nombre:{nombreEquipoParam}}), (b:competicion{nombre:{nombreCompeticionParam}}) MERGE (a)-[r:COMPITE]-(b) RETURN a,b', {nombreEquipoParam: nombreEquipo, nombreCompeticionParam :nombreCompeticion})
             .then(function(result){
+            rabbitPublisher.publishMessage('Equipo añadido a una competición');
             })
             .catch(function(err){
                 console.log(err);
@@ -44,6 +46,7 @@ module.exports = {
             session6
                 .run('MATCH (n:competicion {nombre:{nombreCompeticionParam}}) DELETE n.nombre', {nombreCompeticionParam:nombreCompeticion})
                 .then(function(result){
+                    rabbitPublisher.publishMessage('Competición eliminada');
                     res.redirect('/');
                     session6.close();
                 })

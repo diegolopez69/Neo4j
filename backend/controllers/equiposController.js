@@ -27,6 +27,7 @@ module.exports = {
         session5
             .run('MATCH(n:equipo {nombre:{nombreEquipoParam}}) DETACH DELETE n.nombre', {nombreEquipoParam:nombreEquipo})
             .then(function(result){
+                rabbitPublisher.publishMessage('Equipo eliminado');
                 res.redirect('/');
                 session5.close();
             })
