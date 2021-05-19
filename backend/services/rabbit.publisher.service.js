@@ -2,13 +2,13 @@ const amqp = require('amqplib/callback_api');
 const publishMessage = (sendMessage) => {
     amqp.connect('amqp://localhost', function (error0, connection) {
     if (error0) {
-        console.log('error connecting');
+        console.log('Error al conectar');
         return;
     };
 
     connection.createChannel(function (error1, channel) {
         if (error1) {
-            console.log('error creating channel');
+            console.log('Error creando el canal');
             return;
         }
         const queue = 'Equipos';
@@ -19,7 +19,7 @@ const publishMessage = (sendMessage) => {
         });
 
         channel.sendToQueue(queue, Buffer.from(sendMessage));
-        console.log(" [x] Sent %s", sendMessage);
+        console.log(" [x] Enviado %s", sendMessage);
     });
     setTimeout(function () {
         connection.close();
