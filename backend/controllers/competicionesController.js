@@ -11,8 +11,9 @@ module.exports = {
         .run('CREATE(n:competicion {nombre:{nombreCompeticionParam}}) RETURN n.nombre', {nombreCompeticionParam:nombreCompeticion})
         .then(function(result){
             rabbitPublisher.publishMessage('Competición añadida');
-            res.redirect('/');
             session3.close();
+            res.redirect('/');
+            
         })
         .catch(function(err){
             console.log(err);
@@ -47,8 +48,9 @@ module.exports = {
                 .run('MATCH (n:competicion {nombre:{nombreCompeticionParam}}) DELETE n.nombre', {nombreCompeticionParam:nombreCompeticion})
                 .then(function(result){
                     rabbitPublisher.publishMessage('Competición eliminada');
-                    res.redirect('/');
                     session6.close();
+                    res.redirect('/');
+                    
                 })
                 .catch(function(err){
                     console.log(err);

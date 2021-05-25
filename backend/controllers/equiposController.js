@@ -11,8 +11,9 @@ module.exports = {
             .run('CREATE(n:equipo {nombre:{nombreEquipoParam}}) RETURN n.nombre', {nombreEquipoParam:nombreEquipo})
             .then(function(result){
                 rabbitPublisher.publishMessage('Equipo añadido');
-                res.redirect('/');
                 session2.close();
+                res.redirect('/');
+                
             })
             .catch(function(err){
                 console.log(err);
@@ -28,8 +29,9 @@ module.exports = {
             .run('MATCH(n:equipo {nombre:{nombreEquipoParam}}) DETACH DELETE n.nombre', {nombreEquipoParam:nombreEquipo})
             .then(function(result){
                 rabbitPublisher.publishMessage('Equipo eliminado');
-                res.redirect('/');
                 session5.close();
+                res.redirect('/');
+                
             })
             .catch(function(err){
                 console.log(err);

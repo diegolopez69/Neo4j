@@ -225,8 +225,8 @@ app.post('/borrar',function(req, res){
     session7
         .run('MATCH (n) DETACH DELETE n')
         .then(function(result){
-            res.redirect('/');
             session7.close();
+            res.redirect('/');
         })
         .catch(function(err){
             console.log(err);

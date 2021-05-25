@@ -9,10 +9,10 @@ services:
       - "3000:3000"
     networks:
       - myytnetwork
-    environment:
-      - MESSAGE_QUEUE=amqp://rabbitmq
-    links:
-      - rabbitmq
+   # environment:
+   #   - MESSAGE_QUEUE=amqp://rabbitmq
+   # links:
+   #   - rabbitmq
 
   neo4j: 
     image: neo4j:3.5
@@ -22,10 +22,13 @@ services:
     networks:
       - myytnetwork
 
-  rabbitmq:
-    image: rabbitmq:3.7.4
-    networks:
-      - myytnetwork
+  #rabbitmq:
+  #  image: rabbitmq:3.7.4
+  #  ports: 
+  #    - "5672:5672"
+  #    - "15672:15672"
+  #  networks:
+  #    - myytnetwork
 
 networks:
   myytnetwork:

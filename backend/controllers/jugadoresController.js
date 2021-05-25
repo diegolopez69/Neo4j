@@ -11,8 +11,9 @@ module.exports = {
             .run('CREATE(n:jugador {nombre:{nombreJugadorParam}}) RETURN n.nombre', {nombreJugadorParam:nombreJugador})
             .then(function(result){
                 rabbitPublisher.publishMessage('Jugador añadido');
-                res.redirect('/');
                 session8.close();
+                res.redirect('/');
+                
             })
             .catch(function(err){
                 console.log(err);
@@ -30,6 +31,8 @@ module.exports = {
             .run('MATCH(a:jugador {nombre:{nombreJugadorParam}}), (b:equipo {nombre:{nombreEquipoParam}}) MERGE (a)-[r:JUEGA_EN]-(b) RETURN a,b', {nombreJugadorParam: nombreJugador, nombreEquipoParam: nombreEquipo})
             .then(function(result){
             rabbitPublisher.publishMessage('Jugador añadido a un equipo');
+            session9.close();
+            res.redirect('/');
             })
             .catch(function(err){
                 console.log(err);

@@ -28,7 +28,7 @@
 </form>
 
 <h1>Agregar una Contraseña</h1>
-<form method="post" action="/login/contraseña" >
+<form method="post" action="/login/contra" >
     <label>Agregar un usuario</label><br>
     <input type="text" name="nombre">
     <br><br>
@@ -36,6 +36,20 @@
     <br><br>
 </form>
 
+
+<h1>Relacionar un usuario con una contraseña</h1>
+<form method="post" action="/login/usuario/contra" >
+    <label>Usuario</label><br>
+    <input type="text" name="nombreUsuario">
+    <br><br>
+    <label>Contraseña</label><br>
+    <input type="text" name="nombreContra">
+    <br><br>
+    <input type="submit" value="Submit">
+    <br><br>
+</form>
+
+<hr>
         
 <h1>Agregar un jugador</h1>
 <form method="post" action="/jugador/add" >
