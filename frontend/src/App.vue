@@ -79,7 +79,7 @@ export default {
     sidebarMenu: true,
     toggleMini: false,
     items: [
-      { title: "Competencias", href: "/dashboard", icon: "mdi-home-outline" },
+      { title: "Competiciones", href: "/dashboard", icon: "mdi-home-outline" },
       {
         title: "Equipos",
         href: "/sharedpasswords",
