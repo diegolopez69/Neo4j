@@ -1,15 +1,15 @@
 version: '3'
 services: 
-  backend: 
-    build: ./backend
-    command: node app
+  #backend: 
+   # build: ./backend
+   # command: node app
     #volumes: 
      # - "./backend:/usr/src/app"
-    ports:
-      - "3000:3000"
-    networks:
-      - myytnetwork
-   # environment:
+    #ports:
+     # - "3000:3000"
+    #networks:
+     # - myytnetwork
+   # environment: 
    #   - MESSAGE_QUEUE=amqp://rabbitmq
    # links:
    #   - rabbitmq
