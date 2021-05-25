@@ -13,7 +13,6 @@ module.exports = {
                 rabbitPublisher.publishMessage('Equipo añadido');
                 session2.close();
                 res.redirect('/');
-                
             })
             .catch(function(err){
                 console.log(err);
