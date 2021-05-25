@@ -22,13 +22,13 @@ services:
     networks:
       - myytnetwork
 
-  #rabbitmq:
-  #  image: rabbitmq:3.7.4
-  #  ports: 
-  #    - "5672:5672"
-  #    - "15672:15672"
-  #  networks:
-  #    - myytnetwork
+  rabbitmq:
+    image: 'rabbitmq:3.7-management-alpine'
+    ports:
+        - 15672:15672
+        - 5672:5672
+    networks:
+    - notifications-net
 
 networks:
   myytnetwork:
