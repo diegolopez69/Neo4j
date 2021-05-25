@@ -18,7 +18,26 @@
     <body onload="draw()">
 
 
-        <h1>Agregar un jugador</h1>
+<h1>Agregar un Usuario</h1>
+<form method="post" action="/login/usuario" >
+    <label>Agregar un usuario</label><br>
+    <input type="text" name="nombre">
+    <br><br>
+    <input type="submit" value="Submit">
+    <br><br>
+</form>
+
+<h1>Agregar una Contraseña</h1>
+<form method="post" action="/login/contraseña" >
+    <label>Agregar un usuario</label><br>
+    <input type="text" name="nombre">
+    <br><br>
+    <input type="submit" value="Submit">
+    <br><br>
+</form>
+
+        
+<h1>Agregar un jugador</h1>
 <form method="post" action="/jugador/add" >
     <label>Agregar jugador</label><br>
     <input type="text" name="nombre">
