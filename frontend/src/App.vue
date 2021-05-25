@@ -31,7 +31,7 @@
           <v-icon>mdi-account-outline</v-icon>
         </v-list-item-avatar>
         <v-list-item-content class="text-truncate">
-          Phill Collins
+          Administrador
         </v-list-item-content>
         <v-btn icon small>
           <v-icon>mdi-chevron-left</v-icon>
@@ -79,13 +79,13 @@ export default {
     sidebarMenu: true,
     toggleMini: false,
     items: [
-      { title: "Contraseñas", href: "/dashboard", icon: "mdi-home-outline" },
+      { title: "Competencias", href: "/dashboard", icon: "mdi-home-outline" },
       {
-        title: "Contraseñas compartidas",
+        title: "Equipos",
         href: "/sharedpasswords",
         icon: "mdi-shield-account"
       },
-      { title: "Settings", href: "/settings", icon: "mdi-settings-outline" }
+      { title: "Jugadores", href: "/settings", icon: "mdi-shield-account" }
     ]
   }),
   computed: {
