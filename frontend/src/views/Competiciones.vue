@@ -10,7 +10,7 @@
         </b-field>
         <b-button
                 label="Agregar"
-                type="is-success"
+                type="is-primary"
                 icon-right="check"
                  />
 

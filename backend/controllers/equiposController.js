@@ -20,7 +20,7 @@ module.exports = {
     
         res.redirect('/');
     },
-    //Buscar a todos los equipo
+    //Buscar a todos los equipos
     buscar: (req, res)=>{  
         let nombreEquipo = req.body.nombre;
         let session2 = driver.session();

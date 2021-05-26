@@ -19,10 +19,10 @@
                 Jugadores
             </b-navbar-item>
             <b-navbar-dropdown label="Relacionar">
-                <b-navbar-item href="#">
+                <b-navbar-item tag="router-link" :to="{ path: '/competicionEquipo' }">
                     Competiciones - Equipos
                 </b-navbar-item>
-                <b-navbar-item href="#">
+                <b-navbar-item tag="router-link" :to="{ path: '/equipoJugador' }">
                     Equipos - Jugadores
                 </b-navbar-item>
             </b-navbar-dropdown>
