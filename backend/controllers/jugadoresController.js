@@ -39,5 +39,22 @@ module.exports = {
             });
     
         res.redirect('/');
-    }
+    },
+    //Buscar a todos los equipo
+    buscar: (req, res)=>{  
+        let nombreEquipo = req.body.nombre;
+        let session2 = driver.session();
+        session2
+            .run('MATCH(n:jugador) RETURN n')
+            .then(function(result){
+                rabbitPublisher.publishMessage('Búsqueda de todos los equipos');
+                session2.close();
+                res.redirect('/');
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+    
+        res.redirect('/');
+    },
 }

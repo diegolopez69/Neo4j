@@ -31,7 +31,7 @@ import axios from "axios";
         },
         methods: {
             async agarrarCompeticiones() {
-                const {data} = await axios.get("http://localhost:3000/");
+                const {data} = await axios.get("http://localhost:3000/jugadores/buscar");
                 this.competiciones = data.competiciones;
             }
         }

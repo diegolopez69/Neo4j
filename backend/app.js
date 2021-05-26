@@ -26,7 +26,7 @@ let session = driver.session();
 
 app.get('/', function(req, res){
     session
-        .run('MATCH(n:competicion) RETURN n LIMIT 25')
+        .run('MATCH(n:competicion) RETURN n')
         .then(function(result){
             let competicionArr = [];
             result.records.forEach(function(record){

@@ -21,6 +21,23 @@ module.exports = {
 
     res.redirect('/');
     },
+    //Buscar todas las competiciones
+    buscar: (req, res)=>{  
+        let nombreEquipo = req.body.nombre;
+        let session2 = driver.session();
+        session2
+            .run('MATCH(n:competicion) RETURN n')
+            .then(function(result){
+                rabbitPublisher.publishMessage('Búsqueda de todos los equipos');
+                session2.close();
+                res.redirect('/');
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+    
+        res.redirect('/');
+    },
     //Añadir una competición a un equipo
     addEquipo: (req, res)=>{  
         let session4 = driver.session();
