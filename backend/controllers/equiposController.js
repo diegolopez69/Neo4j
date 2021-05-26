@@ -21,19 +21,20 @@ module.exports = {
         res.redirect('/');
     },
     //Buscar a todos los equipos
-    buscar: (req, res)=>{  
-        let session2 = driver.session();
-        session2
-            .run('MATCH(n:equipo) RETURN n')
-            .then(function(result){
-                rabbitPublisher.publishMessage('Búsqueda de todos los equipos');
-                session2.close();
+    get: (req, res)=>{  
+        let session11 = driver.session();
+        session11
+            .run('match (n:equipo) return n')
+            .then(function (result) {
+                rabbitPublisher.publishMessage('búsqueda de todos los equipos');
+                session11.close();
                 res.redirect('/');
+
             })
-            .catch(function(err){
+            .catch(function (err) {
                 console.log(err);
             });
-    
+
         res.redirect('/');
     },
     //Borrar un equipo

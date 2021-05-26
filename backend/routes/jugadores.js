@@ -5,6 +5,6 @@ const JugadoresController = require('./../controllers/jugadoresController');
 
 router.post('/add',JugadoresController.add);
 router.post('/equipo/add',JugadoresController.addEquipo);
-router.get('/buscar',JugadoresController.buscar);
+router.get('/get',JugadoresController.get);
 
 module.exports = router;

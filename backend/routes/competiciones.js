@@ -5,7 +5,7 @@ const CompeticionesController = require('./../controllers/competicionesControlle
 
 router.post('/add',CompeticionesController.add);
 router.post('/equipo/add',CompeticionesController.addEquipo);
-router.post('/delete',CompeticionesController.addEquipo);
-router.get('/buscar',CompeticionesController.buscar);
+router.post('/delete',CompeticionesController.delete);
+router.get('/get',CompeticionesController.get);
 
 module.exports = router;

@@ -6,10 +6,9 @@ const equiposRoutes = require('./equipos');
 const jugadoresRoutes = require('./jugadores');
 const competicionesRoutes = require('./competiciones');
 
+router.use('/login',loginRoutes);
+router.use('/competicion',competicionesRoutes);
 router.use('/equipo',equiposRoutes);
 router.use('/jugador',jugadoresRoutes);
-router.use('/competicion',competicionesRoutes);
-router.use('/login',loginRoutes);
-
 
 module.exports = router;

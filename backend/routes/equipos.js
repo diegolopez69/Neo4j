@@ -4,7 +4,7 @@ const router = new Router();
 const EquiposController = require('./../controllers/equiposController');
 
 router.post('/add',EquiposController.add);
-router.get('/buscar',EquiposController.buscar);
-router.get('/borrar',EquiposController.borrar);
+router.post('/borrar',EquiposController.borrar);
+router.get('/get',EquiposController.get);
 
 module.exports = router;

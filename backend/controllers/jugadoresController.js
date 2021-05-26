@@ -41,20 +41,20 @@ module.exports = {
         res.redirect('/');
     },
     //Buscar a todos los jugadores
-    buscar: (req, res)=>{  
-        let nombreEquipo = req.body.nombre;
-        let session2 = driver.session();
-        session2
-            .run('MATCH(n:jugador) RETURN n')
-            .then(function(result){
-                rabbitPublisher.publishMessage('Búsqueda de todos los equipos');
-                session2.close();
+    get: (req, res)=>{  
+        let session12 = driver.session();
+        session12
+            .run('match (n:jugador) return n')
+            .then(function (result) {
+                rabbitPublisher.publishMessage('búsqueda de todos los jugadores');
+                session12.close();
                 res.redirect('/');
+
             })
-            .catch(function(err){
+            .catch(function (err) {
                 console.log(err);
             });
-    
+
         res.redirect('/');
     },
 }

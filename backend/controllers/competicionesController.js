@@ -21,28 +21,40 @@ module.exports = {
 
         res.redirect('/');
     },
+
     //Buscar todas las competiciones
-    buscar: (req, res) => {
-        let nombreEquipo = req.body.nombre;
-        let session2 = driver.session();
-
-
-
-        session2
-            .run('MATCH(n:competicion) RETURN n')
+    get: (req, res) => {
+        let session10 = driver.session();
+        session10
+            .run('match (n:competicion) return n')
             .then(function (result) {
-                let competicionArr = [];
-                result.records.forEach(function (record) {
-                    competicionArr.push({
-                        id: record._fields[0].identity.low,
-                        nombre: record._fields[0].properties.nombre
-                    });
-                })
-                    .catch(function (err) {
-                        console.log(err);
-                    });
+                rabbitPublisher.publishMessage('búsqueda de todas las competiciones');
+                session10.close();
+                res.redirect('/');
+
             })
+            .catch(function (err) {
+                console.log(err);
+            });
+
         res.redirect('/');
+
+
+        // session2
+        //     .run('MATCH(n:competicion) RETURN n')
+        //     .then(function (result) {
+        //         let competicionArr = [];
+        //         result.records.forEach(function (record) {
+        //             competicionArr.push({
+        //                 id: record._fields[0].identity.low,
+        //                 nombre: record._fields[0].properties.nombre
+        //             });
+        //         })
+        //             .catch(function (err) {
+        //                 console.log(err);
+        //             });
+        //     })
+        // res.redirect('/');
     },
     //Añadir una competición a un equipo
     addEquipo: (req, res) => {
@@ -63,6 +75,7 @@ module.exports = {
             });
         res.redirect('/');
     },
+
     //Eliminar una competición
     delete: (req, res) => {
         let nombreCompeticion = req.body.nombre;
