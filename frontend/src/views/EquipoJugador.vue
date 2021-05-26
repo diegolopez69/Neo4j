@@ -1,5 +1,6 @@
 <template>
     <section>
+        <h3 class="title is-3">Relacionar equipo-jugador</h3>
         <b-field label="Nombre del equipo">
             <b-input></b-input>
             <!-- <b-input v-model="name"></b-input> -->

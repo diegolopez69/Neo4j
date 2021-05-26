@@ -1,23 +1,43 @@
 <template>
     <section>
-        <b-button
-            label="Launch component modal"
-            type="is-primary"
-            size="is-medium"
-            @click="isComponentModalActive = true" />
+       <form action="">
+                <div class="modal-card" style="width: auto">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Login</p>
+                        <button
+                            type="button"
+                            class="delete"
+                            @click="$emit('close')"/>
+                    </header>
+                    <section class="modal-card-body">
+                        <b-field label="Usuario">
+                            <b-input
+                                type="text"
+                                :value="text"
+                                placeholder="Introduce tu usuario"
+                                required>
+                            </b-input>
+                        </b-field>
 
-        <b-modal
-            v-model="isComponentModalActive"
-            has-modal-card
-            trap-focus
-            :destroy-on-hide="false"
-            aria-role="dialog"
-            aria-label="Example Modal"
-            aria-modal>
-            <template #default="props">
-                <modal-form v-bind="formProps" @close="props.close"></modal-form>
-            </template>
-        </b-modal>
+                        <b-field label="Contraseña">
+                            <b-input
+                                type="password"
+                                :value="password"
+                                password-reveal
+                                placeholder="Introduce tu contraseña"
+                                required>
+                            </b-input>
+                        </b-field>
+
+                        
+                    </section>
+                    <footer class="modal-card-foot">
+                        <b-button
+                            label="Login"
+                            type="is-primary" />
+                    </footer>
+                </div>
+            </form>
     </section>
 </template>
 

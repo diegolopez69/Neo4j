@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h3 class="title is-3">Agregar</h3>
+    <h3 class="title is-3">Agregar equipo</h3>
     <b-field label="Nombre del equipo">
       <b-input></b-input>
       <!-- <b-input v-model="name"></b-input> -->
@@ -12,7 +12,7 @@
     <b-button label="Agregar" type="is-primary" icon-right="check" />
 
     <hr />
-    <h3 class="title is-3">Eliminar</h3>
+    <h3 class="title is-3">Eliminar equipo</h3>
     <b-field label="Nombre del equipo">
       <b-input></b-input>
       <!-- <b-input v-model="name"></b-input> -->
