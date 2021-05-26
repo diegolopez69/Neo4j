@@ -24,8 +24,9 @@ let session = driver.session();
 
 app.get('/', function(req, res){
     session
-        .run('MATCH(n:competicion) RETURN n LIMIT 25')
+        .run('MATCH(n:competicion) RETURN n')
         .then(function(result){
+            session.close();
             let competicionArr = [];
             result.records.forEach(function(record){
                 competicionArr.push({
@@ -35,8 +36,9 @@ app.get('/', function(req, res){
             });
 
             session
-                .run('MATCH(n:equipo) RETURN n LIMIT 25')
+                .run('MATCH(n:equipo) RETURN n')
                 .then(function(result2){
+                    session.close();
                     let equipoArr = [];
                     result2.records.forEach(function(record){
                         equipoArr.push({
@@ -54,25 +56,25 @@ app.get('/', function(req, res){
                     console.log(err);
                 });
 
-                session
-                .run('MATCH(n:jugador) RETURN n LIMIT 25')
-                .then(function(result3){
-                    let jugadorArr = [];
-                    result3.records.forEach(function(record){
-                        jugadorArr.push({
-                            id: record._fields[0].identity.low,
-                            nombre: record._fields[0].properties.nombre
-                        });
-                    });
-                    res.render('index', {
-                        competiciones: competicionArr,
-                        equipos: equipoArr,
-                        jugadores: jugadorArr
-                    });
-                })
-                .catch(function(err){
-                    console.log(err);
-                });
+                // session
+                // .run('MATCH(n:jugador) RETURN n LIMIT 25')
+                // .then(function(result3){
+                //     let jugadorArr = [];
+                //     result3.records.forEach(function(record){
+                //         jugadorArr.push({
+                //             id: record._fields[0].identity.low,
+                //             nombre: record._fields[0].properties.nombre
+                //         });
+                //     });
+                //     res.render('index', {
+                //         competiciones: competicionArr,
+                //         equipos: equipoArr,
+                //         jugadores: jugadorArr
+                //     });
+                // })
+                // .catch(function(err){
+                //     console.log(err);
+                // });
         })
         .catch(function(err){
             console.log({err});
