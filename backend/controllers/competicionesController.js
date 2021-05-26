@@ -26,9 +26,9 @@ module.exports = {
         let nombreEquipo = req.body.nombre;
         let session2 = driver.session();
         session2
-            .run('MATCH(n:competicion) RETURN n')
+            .run('MATCH (n:competicion) RETURN n.nombre')
             .then(function(result){
-                rabbitPublisher.publishMessage('Búsqueda de todos los equipos');
+                rabbitPublisher.publishMessage('Búsqueda de todas las competiciones');
                 session2.close();
                 res.redirect('/');
             })

@@ -5,6 +5,6 @@ const EquiposController = require('./../controllers/equiposController');
 
 router.post('/add',EquiposController.add);
 router.get('/buscar',EquiposController.buscar);
-router.post('/borrar',EquiposController.borrar);
+router.get('/borrar',EquiposController.borrar);
 
 module.exports = router;

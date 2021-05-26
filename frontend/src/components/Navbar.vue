@@ -9,11 +9,14 @@
             </b-navbar-item>
         </template>
         <template #start>
-            <b-navbar-item href="#">
-                Home
+            <b-navbar-item tag="router-link" :to="{ path: '/competiciones' }">
+                Competiciones
             </b-navbar-item>
-            <b-navbar-item href="#">
-                Documentation
+            <b-navbar-item tag="router-link" :to="{ path: '/equipos' }">
+                Equipos
+            </b-navbar-item>
+            <b-navbar-item tag="router-link" :to="{ path: '/jugadores' }">
+                Jugadores
             </b-navbar-item>
             <b-navbar-dropdown label="Info">
                 <b-navbar-item href="#">
