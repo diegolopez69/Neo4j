@@ -22,7 +22,6 @@ module.exports = {
     },
     //Buscar a todos los equipos
     buscar: (req, res)=>{  
-        let nombreEquipo = req.body.nombre;
         let session2 = driver.session();
         session2
             .run('MATCH(n:equipo) RETURN n')

@@ -37,7 +37,7 @@ app.get('/', function(req, res){
             });
 
             session
-                .run('MATCH(n:equipo) RETURN n LIMIT 25')
+                .run('MATCH(n:equipo) RETURN n')
                 .then(function(result2){
                     let equipoArr = [];
                     result2.records.forEach(function(record){
@@ -56,7 +56,7 @@ app.get('/', function(req, res){
                 });
 
                 session
-                .run('MATCH(n:jugador) RETURN n LIMIT 25')
+                .run('MATCH(n:jugador) RETURN n')
                 .then(function(result3){
                     let jugadorArr = [];
                     result3.records.forEach(function(record){
