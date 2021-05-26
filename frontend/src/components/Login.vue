@@ -71,29 +71,6 @@
 </template>
 <script>
 export default {
-  data: () => ({
-    valid: true,
-    name: "",
-    nameRules: [v => !!v || "El nombre es requerido"],
-    password: "",
-    passwordRules: [
-      v => !!v || "Necesita ingresar una contraseña para continuar"
-    ]
-  }),
-  methods: {
-    /**
-     *  Validate    This method will allow us to Log in
-     *
-     *
-     *  return void
-     */
-    validate() {},
-    /**
-     *  changeType    This methow will allow us to change between forms in the screen
-     *
-     *  return void
-     */
-    changeType() {}
-  }
+  
 };
 </script>

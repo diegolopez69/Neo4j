@@ -1,3 +1,4 @@
+const cors = require('cors');
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
@@ -8,10 +9,11 @@ const rabbitPublisher = require('./services/rabbit.publisher.service');
 const app = express ();
 
 //view Engine
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+//app.set('views', path.join(__dirname, 'views'));
+//app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+//app.use(logger('dev'));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -44,10 +46,9 @@ app.get('/', function(req, res){
                             nombre: record._fields[0].properties.nombre
                         });
                     });
-                    res.render('index', {
+                    res.send({
                         competiciones: competicionArr,
-                        equipos: equipoArr,
-                                                
+                        equipos: equipoArr,                         
                     });
                 })
                 .catch(function(err){
@@ -64,7 +65,7 @@ app.get('/', function(req, res){
                             nombre: record._fields[0].properties.nombre
                         });
                     });
-                    res.render('index', {
+                    res.send({
                         competiciones: competicionArr,
                         equipos: equipoArr,
                         jugadores: jugadorArr
