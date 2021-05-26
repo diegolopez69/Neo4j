@@ -55,7 +55,7 @@
             async agarrarCompeticiones() {
                 const {
                     data
-                } = await axios.get("http://localhost:3000/competicion/buscar");
+                } = await axios.get("http://localhost:3000/competicion/get");
                 this.competiciones = data.competiciones;
             }
         }

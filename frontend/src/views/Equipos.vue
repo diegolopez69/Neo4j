@@ -22,15 +22,15 @@
 
     <div
       class="card"
-      v-for="competicion in competiciones"
-      :key="competicion.id"
+      v-for="equipo in equipos"
+      :key="equipo.id"
     >
       <div class="card-content">
         <div class="media">
           <div class="media-content">
             <!-- <b-table :data="data" :columns="columns"></b-table> -->
-            <p class="title is-4">{{ competicion.nombre }}</p>
-            <p class="subtitle is-6">{{ competicion.id }}</p>
+            <p class="title is-4">{{ equipo.nombre }}</p>
+            <p class="subtitle is-6">{{ equipo.id }}</p>
           </div>
         </div>
       </div>
@@ -43,16 +43,16 @@ import axios from "axios";
 export default {
   data() {
     return {
-      competiciones: null,
+      equipos: null,
     };
   },
   beforeMount() {
-    this.agarrarCompeticiones();
+    this.getEquipo();
   },
   methods: {
-    async agarrarCompeticiones() {
-      const { data } = await axios.get("http://localhost:3000/equipo/buscar");
-      this.competiciones = data.competiciones;
+    async getEquipo() {
+      const { data } = await axios.get("http://localhost:3000/equipo/get");
+      this.equipos = data.equipos;
     },
   },
 };
