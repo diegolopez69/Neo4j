@@ -18,12 +18,12 @@
             <b-navbar-item tag="router-link" :to="{ path: '/jugadores' }">
                 Jugadores
             </b-navbar-item>
-            <b-navbar-dropdown label="Info">
+            <b-navbar-dropdown label="Relacionar">
                 <b-navbar-item href="#">
-                    About
+                    Competiciones - Equipos
                 </b-navbar-item>
                 <b-navbar-item href="#">
-                    Contact
+                    Equipos - Jugadores
                 </b-navbar-item>
             </b-navbar-dropdown>
         </template>

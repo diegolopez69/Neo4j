@@ -1,11 +1,22 @@
 <template>
     <section>
+        <b-field label="Nombre de la competición">
+            <b-input></b-input>
+            <!-- <b-input v-model="name"></b-input> -->
+        </b-field>
+    
+        <b-field label="Mensaje">
+            <b-input maxlength="200" type="textarea"></b-input>
+        </b-field>
+        <b-button
+                label="Agregar"
+                type="is-success"
+                icon-right="check"
+                 />
+
+        <hr>
+
         <div class="card" v-for="competicion in competiciones" :key="competicion.id">
-            <!-- <div class="card-image">
-                <figure class="image is-4by3">
-                    <img :src="competicion.img" alt="Placeholder image">
-                </figure>
-            </div> -->
             <div class="card-content">
                 <div class="media">
                     <div class="media-content">
@@ -15,11 +26,22 @@
                 </div>
             </div>
         </div>
+         
     </section>
 </template>
 
+
+
+
+
+
+
+
+
+
+
 <script>
-import axios from "axios";
+    import axios from "axios";
     export default {
         data() {
             return {
@@ -31,7 +53,9 @@ import axios from "axios";
         },
         methods: {
             async agarrarCompeticiones() {
-                const {data} = await axios.get("http://localhost:3000/competicion/buscar");
+                const {
+                    data
+                } = await axios.get("http://localhost:3000/competicion/buscar");
                 this.competiciones = data.competiciones;
             }
         }
