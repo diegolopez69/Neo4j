@@ -57,4 +57,22 @@ module.exports = {
 
         res.redirect('/');
     },
+    //Borrar un jugador
+    delete:(req, res)=>{
+        let nombreJugador = req.body.nombre;
+        let session13 = driver.session();
+        session13
+            .run('MATCH(n:jugador {nombre:{nombreJugadorParam}}) DETACH DELETE n', {nombreJugadorParam:nombreJugador})
+            .then(function(result){
+                rabbitPublisher.publishMessage('jugador eliminado');
+                session13.close();
+                res.redirect('/');
+                
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+    
+        res.redirect('/');
+    }
 }

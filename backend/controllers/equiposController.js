@@ -38,7 +38,7 @@ module.exports = {
         res.redirect('/');
     },
     //Borrar un equipo
-    borrar:(req, res)=>{
+    delete:(req, res)=>{
         let nombreEquipo = req.body.nombre;
         let session5 = driver.session();
         session5

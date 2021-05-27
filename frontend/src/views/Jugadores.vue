@@ -60,7 +60,7 @@ import axios from "axios";
                 const {data} = await axios.post("http://localhost:3000/jugador/add");
                 this.jugadores = data.jugadores;
             },
-            async getJugador() {
+            async deleteJugador() {
                 const {data} = await axios.post("http://localhost:3000/jugador/delete");
                 this.jugadores = data.jugadores;
             },

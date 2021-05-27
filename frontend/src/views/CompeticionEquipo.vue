@@ -26,13 +26,13 @@
             }
         },
         beforeMount() {
-            this.agarrarCompeticiones();
+            this.postCompeticionEquipo();
         },
         methods: {
-            async agarrarCompeticiones() {
+            async postCompeticionEquipo() {
                 const {
                     data
-                } = await axios.get("http://localhost:3000/competicion/equipo/add");
+                } = await axios.post("http://localhost:3000/competicion/equipo/add");
                 this.competiciones = data.competiciones;
             }
         }
