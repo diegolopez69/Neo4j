@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 let neo4j = require('neo4j-driver');
 const routes = require('./routes')
 const rabbitPublisher = require('./services/rabbit.publisher.service');
+const { cpuUsage } = require('process');
 const app = express ();
 
 //view Engine
@@ -20,9 +21,47 @@ app.use(express.static(path.join(__dirname, 'public')));
 let driver = neo4j.driver('bolt://localhost', neo4j.auth.basic('neo4j', 'test'));
 let session = driver.session();
 
+const getCompeticiones =async  () => {
+    const tempSession = driver.session();
+    let competicionArr = [];
+    return await tempSession.run('MATCH(n:competicion) RETURN n')
+    .then((result) => {
+        console.log('competiciones');
+        let data = result.records.map((record) =>{
+            console.log(record._fields[0].identity.low)
+            competicionArr.push({
+                id: record._fields[0].identity.low,
+                nombre: record._fields[0].properties.nombre
+            });
+        });
+    });
+    return competicionArr;
+};
+const getJugadores = () => {};
+const getEquipos = () => {
+    const tempSession = driver.session();
+    let jugadorArr = [];
+    tempSession
+     .run('MATCH(n:jugador) RETURN n LIMIT 25')
+    .then(function(result3){
+        result3.records.forEach(function(record){
+            jugadorArr.push({
+                id: record._fields[0].identity.low,
+                nombre: record._fields[0].properties.nombre
+            });
+        });
+        
+    })
+    .catch(function(err){
+        console.log(err);
+    });
+    return jugadorArr;
 
+};
 
 app.get('/', function(req, res){
+    console.log(getCompeticiones());
+
     session
         .run('MATCH(n:competicion) RETURN n')
         .then(function(result){
