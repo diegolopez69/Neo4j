@@ -22,69 +22,69 @@ app.use(express.static(path.join(__dirname, 'public')));
 let driver = neo4j.driver('bolt://localhost', neo4j.auth.basic('neo4j', 'test'));
 let session = driver.session();
 
+const getCompeticions = async () => {
+    let temp = [];
+    try {
+    const tempSession = driver.session();
+    const {records: data} = await tempSession.run('MATCH(n:competicion) RETURN n');
+    temp = data.map((record) => {
+        return {
+            id: record._fields[0].identity.low,
+            nombre: record._fields[0].properties.nombre
+        };
+    });
+    return temp;
+    } catch (exception) {
+        console.log("fallo por esto: ", exception)
+    }
+    return temp;
+};
 
+const getEquipos = async () => {
+    let temp = [];
+    try {
+    const tempSession = driver.session();
+    const {records: data} = await tempSession.run('MATCH(n:equipo) RETURN n');
+    temp = data.map((record) => {
+        return {
+            id: record._fields[0].identity.low,
+            nombre: record._fields[0].properties.nombre
+        };
+    });
+    return temp;
+    } catch (exception) {
+        console.log("fallo por esto: ", exception)
+    }
+    return temp;
+};
 
-app.get('/', function(req, res){
+const getJugadores = async (req, res) => {
+    let temp = [];
+    try {
+    const tempSession = driver.session();
+    const {records: data} = await tempSession.run('MATCH(n:jugador) RETURN n');
+    temp = data.map((record) => {
+        return {
+            id: record._fields[0].identity.low,
+            nombre: record._fields[0].properties.nombre
+        };
+    });
+    res.send({jugadores: temp});
+    } catch (exception) {
+        console.log("fallo por esto: ", exception)
+    }
+    return temp;
+};
+
+app.get('/', async function(req, res){
+    console.log(getCompeticions());
+    await getJugadores(req, res);
+    //res.send({
+        //competiciones: await getCompeticions(),
+        // equipos: await getEquipos(),
+      //  jugadores: await getJugadores(),
+    //});
     
-    session
-        .run('MATCH(n:competicion) RETURN n')
-        .then(function(result){
-            console.log('Probando si entra para devolver las competiciones');
-            //session.close();
-            let competicionArr = [];
-            result.records.forEach(function(record){
-                competicionArr.push({
-                    id: record._fields[0].identity.low,
-                    nombre: record._fields[0].properties.nombre
-                });
-            });
-
-            session
-                .run('MATCH(n:equipo) RETURN n')
-                .then(function(result2){
-                    console.log('Probando si entra para devolver los equipos');
-                    //session.close();
-                    let equipoArr = [];
-                    result2.records.forEach(function(record){
-                        equipoArr.push({
-                            id: record._fields[0].identity.low,
-                            nombre: record._fields[0].properties.nombre
-                        });
-                    });
-                    res.send({
-                        competiciones: competicionArr,
-                        equipos: equipoArr,                         
-                    });
-                })
-                .catch(function(err){
-                    console.log(err);
-                });
-
-                session
-                .run('MATCH(n:jugador) RETURN n')
-                .then(function(result3){
-                    //session.close();
-                    console.log('Probando si entra para devolver los jugadores');
-                    let jugadorArr = [];
-                    result3.records.forEach(function(record){
-                        jugadorArr.push({
-                            id: record._fields[0].identity.low,
-                            nombre: record._fields[0].properties.nombre
-                        });
-                    });
-                    res.send({
-                        competiciones: competicionArr,
-                        equipos: equipoArr,
-                        jugadores: jugadorArr
-                    });
-                })
-                .catch(function(err){
-                    console.log(err);
-                });
-        })
-        .catch(function(err){
-            console.log({err});
-        });
 });
 
 

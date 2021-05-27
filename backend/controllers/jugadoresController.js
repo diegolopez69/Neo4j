@@ -41,22 +41,24 @@ module.exports = {
         res.redirect('/');
     },
     //Buscar a todos los jugadores
-    get: (req, res)=>{  
-        let session12 = driver.session();
-        session12
-            .run('MATCH (n:jugador) RETURN n')
-            .then(function (result) {
-                rabbitPublisher.publishMessage('búsqueda de todos los jugadores');
-                session12.close();
-                res.redirect('/');
-
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
-
-        res.redirect('/');
+    get:getJugadores = async (req, res) => {
+        let temp = [];
+        try {
+        const tempSession = driver.session();
+        const {records: data} = await tempSession.run('MATCH(n:jugador) RETURN n');
+        temp = data.map((record) => {
+            return {
+                id: record._fields[0].identity.low,
+                nombre: record._fields[0].properties.nombre
+            };
+        });
+        res.send({jugadores: temp});
+        } catch (exception) {
+            console.log("fallo por esto: ", exception)
+        }
+        return temp;
     },
+
     //Borrar un jugador
     delete:(req, res)=>{
         let nombreJugador = req.body.nombre;
