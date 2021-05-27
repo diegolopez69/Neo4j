@@ -48,12 +48,22 @@ export default {
   },
   beforeMount() {
     this.getEquipo();
+    this.addEquipo();
+    this.deleteEquipo();
   },
   methods: {
     async getEquipo() {
       const { data } = await axios.get("http://localhost:3000/equipo/get");
       this.equipos = data.equipos;
     },
+    async addEquipo() {
+      const { data } = await axios.post("http://localhost:3000/equipo/add");
+      this.equipos = data.equipos;
+    },
+    async deleteEquipo() {
+      const { data } = await axios.post("http://localhost:3000/equipo/delete");
+      this.equipos = data.equipos;
+    }
   },
 };
 </script>

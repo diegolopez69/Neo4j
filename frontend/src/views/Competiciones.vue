@@ -49,15 +49,29 @@
             }
         },
         beforeMount() {
-            this.agarrarCompeticiones();
+            this.getCompeticiones();
+            this.addCompeticiones();
+            this.deleteCompeticiones();
         },
         methods: {
-            async agarrarCompeticiones() {
+            async getCompeticiones() {
                 const {
                     data
                 } = await axios.get("http://localhost:3000/competicion/get");
                 this.competiciones = data.competiciones;
-            }
+            },
+            async addCompeticiones() {
+                const {
+                    data
+                } = await axios.post("http://localhost:3000/competicion/add");
+                this.competiciones = data.competiciones;
+            },
+            async deleteCompeticiones() {
+                const {
+                    data
+                } = await axios.post("http://localhost:3000/competicion/delete");
+                this.competiciones = data.competiciones;
+            },
         }
     }
 </script>

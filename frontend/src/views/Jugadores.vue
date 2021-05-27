@@ -47,13 +47,23 @@ import axios from "axios";
             }
         },
         beforeMount() {
-            this.getJugadores();
+            this.getJugador();
+            this.addJugador();
+            this.deleteJugador();
         },
         methods: {
-            async getJugadores() {
+            async getJugador() {
                 const {data} = await axios.get("http://localhost:3000/jugador/get");
                 this.jugadores = data.jugadores;
-            }
+            },
+            async addJugador() {
+                const {data} = await axios.post("http://localhost:3000/jugador/add");
+                this.jugadores = data.jugadores;
+            },
+            async getJugador() {
+                const {data} = await axios.post("http://localhost:3000/jugador/delete");
+                this.jugadores = data.jugadores;
+            },
         }
     }
 </script>

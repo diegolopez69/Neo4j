@@ -44,7 +44,7 @@ module.exports = {
     get: (req, res)=>{  
         let session12 = driver.session();
         session12
-            .run('match (n:jugador) return n')
+            .run('MATCH (n:jugador) RETURN n')
             .then(function (result) {
                 rabbitPublisher.publishMessage('búsqueda de todos los jugadores');
                 session12.close();
