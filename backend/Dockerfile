@@ -1,6 +1,6 @@
 FROM node:alpine
 WORKDIR /usr/src/app
-RUN npm install express --save && npm install
 COPY . .
+RUN npm install express --save && npm install
 EXPOSE 3000
 CMD [ "node", "app" ] 

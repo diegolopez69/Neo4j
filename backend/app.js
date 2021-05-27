@@ -26,7 +26,7 @@ app.get('/', function(req, res){
     session
         .run('MATCH(n:competicion) RETURN n')
         .then(function(result){
-            session.close();
+            console.log('competiciones');
             let competicionArr = [];
             result.records.forEach(function(record){
                 competicionArr.push({
@@ -38,7 +38,7 @@ app.get('/', function(req, res){
             session
                 .run('MATCH(n:equipo) RETURN n')
                 .then(function(result2){
-                    session.close();
+                    console.log('equipos');
                     let equipoArr = [];
                     result2.records.forEach(function(record){
                         equipoArr.push({
