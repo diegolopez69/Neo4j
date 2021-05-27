@@ -30,8 +30,8 @@ module.exports = {
             .then(function (result) {
                 rabbitPublisher.publishMessage('búsqueda de todas las competiciones');
                 session10.close();
-                res.redirect('/');
-
+                //res.redirect('/');
+                console.log('Método de buscar');
             })
             .catch(function (err) {
                 console.log(err);
@@ -68,6 +68,7 @@ module.exports = {
         session4
             .run('MATCH(a:equipo {nombre:{nombreEquipoParam}}), (b:competicion{nombre:{nombreCompeticionParam}}) MERGE (a)-[r:COMPITE]-(b) RETURN a,b', { nombreEquipoParam: nombreEquipo, nombreCompeticionParam: nombreCompeticion })
             .then(function (result) {
+                session4.close();
                 rabbitPublisher.publishMessage('Equipo añadido a una competición');
             })
             .catch(function (err) {

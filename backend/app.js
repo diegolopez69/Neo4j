@@ -25,60 +25,63 @@ let session = driver.session();
 
 
 app.get('/', function(req, res){
-    console.log('Si entra acá');
-    // session
-    //     .run('MATCH(n:competicion) RETURN n')
-    //     .then(function(result){
-    //         let competicionArr = [];
-    //         result.records.forEach(function(record){
-    //             competicionArr.push({
-    //                 id: record._fields[0].identity.low,
-    //                 nombre: record._fields[0].properties.nombre
-    //             });
-    //         });
+    
+    session
+        .run('MATCH(n:competicion) RETURN n')
+        .then(function(result){
+            //session.close();
+            let competicionArr = [];
+            result.records.forEach(function(record){
+                competicionArr.push({
+                    id: record._fields[0].identity.low,
+                    nombre: record._fields[0].properties.nombre
+                });
+            });
 
-    //         session
-    //             .run('MATCH(n:equipo) RETURN n')
-    //             .then(function(result2){
-    //                 let equipoArr = [];
-    //                 result2.records.forEach(function(record){
-    //                     equipoArr.push({
-    //                         id: record._fields[0].identity.low,
-    //                         nombre: record._fields[0].properties.nombre
-    //                     });
-    //                 });
-    //                 res.send({
-    //                     competiciones: competicionArr,
-    //                     equipos: equipoArr,                         
-    //                 });
-    //             })
-    //             .catch(function(err){
-    //                 console.log(err);
-    //             });
+            session
+                .run('MATCH(n:equipo) RETURN n')
+                .then(function(result2){
+                    //session.close();
+                    let equipoArr = [];
+                    result2.records.forEach(function(record){
+                        equipoArr.push({
+                            id: record._fields[0].identity.low,
+                            nombre: record._fields[0].properties.nombre
+                        });
+                    });
+                    res.send({
+                        competiciones: competicionArr,
+                        equipos: equipoArr,                         
+                    });
+                })
+                .catch(function(err){
+                    console.log(err);
+                });
 
-    //             session
-    //             .run('MATCH(n:jugador) RETURN n')
-    //             .then(function(result3){
-    //                 let jugadorArr = [];
-    //                 result3.records.forEach(function(record){
-    //                     jugadorArr.push({
-    //                         id: record._fields[0].identity.low,
-    //                         nombre: record._fields[0].properties.nombre
-    //                     });
-    //                 });
-    //                 res.send({
-    //                     competiciones: competicionArr,
-    //                     equipos: equipoArr,
-    //                     jugadores: jugadorArr
-    //                 });
-    //             })
-    //             .catch(function(err){
-    //                 console.log(err);
-    //             });
-    //     })
-    //     .catch(function(err){
-    //         console.log({err});
-    //     });
+                session
+                .run('MATCH(n:jugador) RETURN n')
+                .then(function(result3){
+                    //session.close();
+                    let jugadorArr = [];
+                    result3.records.forEach(function(record){
+                        jugadorArr.push({
+                            id: record._fields[0].identity.low,
+                            nombre: record._fields[0].properties.nombre
+                        });
+                    });
+                    res.send({
+                        competiciones: competicionArr,
+                        equipos: equipoArr,
+                        jugadores: jugadorArr
+                    });
+                })
+                .catch(function(err){
+                    console.log(err);
+                });
+        })
+        .catch(function(err){
+            console.log({err});
+        });
 });
 
 
