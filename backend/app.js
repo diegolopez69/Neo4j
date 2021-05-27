@@ -29,6 +29,7 @@ app.get('/', function(req, res){
     session
         .run('MATCH(n:competicion) RETURN n')
         .then(function(result){
+            console.log('Probando si entra para devolver las competiciones');
             //session.close();
             let competicionArr = [];
             result.records.forEach(function(record){
@@ -41,6 +42,7 @@ app.get('/', function(req, res){
             session
                 .run('MATCH(n:equipo) RETURN n')
                 .then(function(result2){
+                    console.log('Probando si entra para devolver los equipos');
                     //session.close();
                     let equipoArr = [];
                     result2.records.forEach(function(record){
@@ -62,6 +64,7 @@ app.get('/', function(req, res){
                 .run('MATCH(n:jugador) RETURN n')
                 .then(function(result3){
                     //session.close();
+                    console.log('Probando si entra para devolver los jugadores');
                     let jugadorArr = [];
                     result3.records.forEach(function(record){
                         jugadorArr.push({

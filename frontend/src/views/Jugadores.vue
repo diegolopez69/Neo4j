@@ -54,6 +54,7 @@ import axios from "axios";
         methods: {
             async getJugador() {
                 const {data} = await axios.get("http://localhost:3000/jugador/get");
+                console.log(data);
                 this.jugadores = data.jugadores;
             },
             async addJugador() {
