@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar />
+    <Navbar v-if="route.name !== 'Login'"/>
     <div class="container">
       <router-view></router-view>
     </div>
@@ -12,8 +12,10 @@ import Navbar from "@/components/Navbar.vue"
 export default {
   name: "App",
   computed: {
-    
-  },
+        route() {
+            return this.$route;
+        }
+    },
   methods: {
     
   },

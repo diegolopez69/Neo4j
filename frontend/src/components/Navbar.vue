@@ -1,5 +1,5 @@
 <template>
-    <b-navbar>
+    <b-navbar >
         <template #brand>
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
                 <img
@@ -44,5 +44,6 @@
 <script>
 export default {
     //@click="$router.push('/')"
+    
 }
 </script>
