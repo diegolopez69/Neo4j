@@ -3,16 +3,17 @@ const rabbitPublisher = require('../services/rabbit.publisher.service');
 let driver = neo4j.driver('bolt://localhost', neo4j.auth.basic('neo4j', 'test'));
 
 module.exports = {
-    //Añadir una competición
+    //Añadir un jugador
     add: (req, res)=>{  
         let nombreJugador = req.body.nombre;
         let session8 = driver.session();
+        console.log('Viendo si llega a los jugadores');
         session8
-            .run('CREATE(n:jugador {nombre:{nombreJugadorParam}}) RETURN n.nombre', {nombreJugadorParam:nombreJugador})
+            .run('CREATE(n:jugador {nombre: $nombreJugadorParam}) RETURN n.nombre', {nombreJugadorParam:nombreJugador})
             .then(function(result){
                 rabbitPublisher.publishMessage('Jugador añadido');
                 session8.close();
-                res.redirect('/');
+                //res.redirect('/');
                 
             })
             .catch(function(err){
@@ -21,6 +22,7 @@ module.exports = {
     
         res.redirect('/');
     },
+    
     //Añadir una jugadores a un equipo
     addEquipo: (req, res)=>{  
         let nombreEquipo = req.body.nombreEquipo;
@@ -60,15 +62,16 @@ module.exports = {
     },
 
     //Borrar un jugador
-    delete:(req, res)=>{
+    delete: (req, res)=>{  
         let nombreJugador = req.body.nombre;
-        let session13 = driver.session();
-        session13
-            .run('MATCH(n:jugador {nombre:{nombreJugadorParam}}) DETACH DELETE n', {nombreJugadorParam:nombreJugador})
+        let session8 = driver.session();
+        console.log('Viendo si llega el nombre', req.body.nombres);
+        session8
+            .run('MATCH(n:jugador {nombre: $nombreJugadorParam}) DETACH DELETE n', {nombreJugadorParam:nombreJugador})
             .then(function(result){
-                rabbitPublisher.publishMessage('jugador eliminado');
-                session13.close();
-                res.redirect('/');
+                rabbitPublisher.publishMessage('Jugador añadido');
+                session8.close();
+                //res.redirect('/');
                 
             })
             .catch(function(err){
@@ -76,5 +79,5 @@ module.exports = {
             });
     
         res.redirect('/');
-    }
+    },
 }

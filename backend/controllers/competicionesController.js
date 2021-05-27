@@ -39,22 +39,6 @@ module.exports = {
 
         res.redirect('/');
 
-
-        // session2
-        //     .run('MATCH(n:competicion) RETURN n')
-        //     .then(function (result) {
-        //         let competicionArr = [];
-        //         result.records.forEach(function (record) {
-        //             competicionArr.push({
-        //                 id: record._fields[0].identity.low,
-        //                 nombre: record._fields[0].properties.nombre
-        //             });
-        //         })
-        //             .catch(function (err) {
-        //                 console.log(err);
-        //             });
-        //     })
-        // res.redirect('/');
     },
     //Añadir una competición a un equipo
     addEquipo: (req, res) => {
