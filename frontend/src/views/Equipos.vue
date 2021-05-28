@@ -58,11 +58,11 @@ export default {
     },
     async addEquipo() {
       const { data } = await axios.post("http://localhost:3000/equipo/add",{nombre: this.nombre});
-      this.equipos = data.equipos;
+      await this.getEquipo();
     },
     async deleteEquipo() {
       const { data } = await axios.post("http://localhost:3000/equipo/delete", {nombre: this.borrar});
-      this.equipos = data.equipos;
+      await this.getEquipo();
     }
   },
 };

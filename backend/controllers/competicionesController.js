@@ -47,7 +47,7 @@ module.exports = {
         let nombreCompeticion = req.body.nombreCompeticion;
         let nombreEquipo = req.body.nombreEquipo;
         session4
-            .run('MATCH(a:equipo {nombre:{nombreEquipoParam}}), (b:competicion{nombre:{nombreCompeticionParam}}) MERGE (a)-[r:COMPITE]-(b) RETURN a,b', { nombreEquipoParam: nombreEquipo, nombreCompeticionParam: nombreCompeticion })
+            .run('MATCH(a:equipo {nombre: $nombreEquipoParam}), (b:competicion{nombre: $nombreCompeticionParam}) MERGE (a)-[r:COMPITE]-(b) RETURN a,b', { nombreEquipoParam: nombreEquipo, nombreCompeticionParam: nombreCompeticion })
             .then(function (result) {
                 session4.close();
                 rabbitPublisher.publishMessage('Equipo añadido a una competición');

@@ -64,13 +64,13 @@
                 const {
                     data
                 } = await axios.post("http://localhost:3000/competicion/add", {nombre: this.nombre});
-                this.competiciones = data.competiciones;
+                await this.getCompeticiones();
             },
             async deleteCompeticiones() {
                 const {
                     data
                 } = await axios.post("http://localhost:3000/competicion/delete", {nombre: this.borrar});
-                this.competiciones = data.competiciones;
+                 await this.getCompeticiones();
             },
         }
     }

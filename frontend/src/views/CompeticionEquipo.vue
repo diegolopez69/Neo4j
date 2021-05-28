@@ -2,17 +2,18 @@
     <section>
         <h3 class="title is-3">Relacionar competición-equipo</h3>
         <b-field label="Nombre de la competición">
-            <b-input></b-input>
+            <b-input v-model="nombreCompeticion"></b-input>
             <!-- <b-input v-model="name"></b-input> -->
         </b-field>
         <b-field label="Nombre del equipo">
-            <b-input></b-input>
+            <b-input v-model="nombreEquipo"></b-input>
             <!-- <b-input v-model="name"></b-input> -->
         </b-field>
         <b-button
                 label="Agregar"
                 type="is-primary"
                 icon-right="check"
+                @click="postCompeticionEquipo()"
                  />         
     </section>
 </template>
@@ -22,7 +23,9 @@
     export default {
         data() {
             return {
-                competiciones: null
+                competiciones: null,
+                nombreCompeticion: "", 
+                nombreEquipo: ""
             }
         },
         beforeMount() {
@@ -32,7 +35,7 @@
             async postCompeticionEquipo() {
                 const {
                     data
-                } = await axios.post("http://localhost:3000/competicion/equipo/add");
+                } = await axios.post("http://localhost:3000/competicion/equipo/add", {nombre: this.nom});
                 this.competiciones = data.competiciones;
             }
         }
