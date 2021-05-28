@@ -8,11 +8,11 @@ module.exports = {
         let nombreEquipo = req.body.nombre;
         let session2 = driver.session();
         session2
-            .run('CREATE(n:equipo {nombre:{nombreEquipoParam}}) RETURN n.nombre', {nombreEquipoParam:nombreEquipo})
+            .run('CREATE(n:equipo {nombre: $nombreEquipoParam}) RETURN n.nombre', {nombreEquipoParam:nombreEquipo})
             .then(function(result){
-                rabbitPublisher.publishMessage('Equipo añadido');
+                rabbitPublisher.publishMessage('equipo añadido');
                 session2.close();
-                res.redirect('/');
+                //res.redirect('/');
             })
             .catch(function(err){
                 console.log(err);
@@ -21,32 +21,33 @@ module.exports = {
         res.redirect('/');
     },
     //Buscar a todos los equipos
-    get: (req, res)=>{  
-        let session11 = driver.session();
-        session11
-            .run('match (n:equipo) return n')
-            .then(function (result) {
-                rabbitPublisher.publishMessage('búsqueda de todos los equipos');
-                session11.close();
-                res.redirect('/');
-
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
-
-        res.redirect('/');
+    get:getEquipos = async (req, res) => {
+        let temp = [];
+        try {
+        const tempSession = driver.session();
+        const {records: data} = await tempSession.run('MATCH(n:equipo) RETURN n');
+        temp = data.map((record) => {
+            return {
+                id: record._fields[0].identity.low,
+                nombre: record._fields[0].properties.nombre
+            };
+        });
+        res.send({equipos: temp});
+        } catch (exception) {
+            console.log("fallo por esto: ", exception)
+        }
+        return temp;
     },
     //Borrar un equipo
     delete:(req, res)=>{
         let nombreEquipo = req.body.nombre;
         let session5 = driver.session();
         session5
-            .run('MATCH(n:equipo {nombre:{nombreEquipoParam}}) DETACH DELETE n.nombre', {nombreEquipoParam:nombreEquipo})
+            .run('MATCH(n:equipo {nombre: $nombreEquipoParam}) DETACH DELETE n', {nombreEquipoParam:nombreEquipo})
             .then(function(result){
-                rabbitPublisher.publishMessage('Equipo eliminado');
+                rabbitPublisher.publishMessage('equipo eliminado');
                 session5.close();
-                res.redirect('/');
+                //res.redirect('/');
                 
             })
             .catch(function(err){

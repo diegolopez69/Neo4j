@@ -2,22 +2,22 @@
   <section>
     <h3 class="title is-3">Agregar equipo</h3>
     <b-field label="Nombre del equipo">
-      <b-input></b-input>
+      <b-input v-model="nombre"></b-input>
       <!-- <b-input v-model="name"></b-input> -->
     </b-field>
 
     <b-field label="Mensaje">
       <b-input maxlength="200" type="textarea"></b-input>
     </b-field>
-    <b-button label="Agregar" type="is-primary" icon-right="check" />
+    <b-button label="Agregar" type="is-primary" icon-right="check" @click="addEquipo()"/>
 
     <hr />
     <h3 class="title is-3">Eliminar equipo</h3>
     <b-field label="Nombre del equipo">
-      <b-input></b-input>
+      <b-input v-model="borrar"></b-input>
       <!-- <b-input v-model="name"></b-input> -->
     </b-field>
-    <b-button label="Eliminar equipo" type="is-primary"/>
+    <b-button label="Eliminar equipo" type="is-primary" @click="deleteEquipo();"/>
     <hr />
 
     <div
@@ -44,12 +44,12 @@ export default {
   data() {
     return {
       equipos: null,
+      nombre:"",
+      borrar:"",
     };
   },
   beforeMount() {
     this.getEquipo();
-    this.addEquipo();
-    this.deleteEquipo();
   },
   methods: {
     async getEquipo() {
@@ -57,11 +57,11 @@ export default {
       this.equipos = data.equipos;
     },
     async addEquipo() {
-      const { data } = await axios.post("http://localhost:3000/equipo/add");
+      const { data } = await axios.post("http://localhost:3000/equipo/add",{nombre: this.nombre});
       this.equipos = data.equipos;
     },
     async deleteEquipo() {
-      const { data } = await axios.post("http://localhost:3000/equipo/delete");
+      const { data } = await axios.post("http://localhost:3000/equipo/delete", {nombre: this.borrar});
       this.equipos = data.equipos;
     }
   },

@@ -7,11 +7,10 @@ module.exports = {
     add: (req, res)=>{  
         let nombreJugador = req.body.nombre;
         let session8 = driver.session();
-        console.log('Viendo si llega a los jugadores');
         session8
             .run('CREATE(n:jugador {nombre: $nombreJugadorParam}) RETURN n.nombre', {nombreJugadorParam:nombreJugador})
             .then(function(result){
-                rabbitPublisher.publishMessage('Jugador añadido');
+                rabbitPublisher.publishMessage('jugador añadido');
                 session8.close();
                 //res.redirect('/');
                 
@@ -65,11 +64,10 @@ module.exports = {
     delete: (req, res)=>{  
         let nombreJugador = req.body.nombre;
         let session8 = driver.session();
-        console.log('Viendo si llega el nombre', req.body.nombres);
         session8
             .run('MATCH(n:jugador {nombre: $nombreJugadorParam}) DETACH DELETE n', {nombreJugadorParam:nombreJugador})
             .then(function(result){
-                rabbitPublisher.publishMessage('Jugador añadido');
+                rabbitPublisher.publishMessage('jugador eliminado');
                 session8.close();
                 //res.redirect('/');
                 

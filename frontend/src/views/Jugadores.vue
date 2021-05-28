@@ -50,8 +50,6 @@ import axios from "axios";
         },
         beforeMount() {
             this.getJugador();
-            //this.addJugador();
-            //this.deleteJugador();
         },
         methods: {
             async getJugador() {
