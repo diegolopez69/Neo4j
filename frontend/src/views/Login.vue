@@ -36,65 +36,36 @@
 </template>
 
 <script>
-const ModalForm = {
-  props: ["email", "password", "canCancel"],
-  template: `
-            <form action="">
-                <div class="modal-card" style="width: auto">
-                    <header class="modal-card-head">
-                        <p class="modal-card-title">Login</p>
-                        <button
-                            type="button"
-                            class="delete"
-                            @click="$emit('close')"/>
-                    </header>
-                    <section class="modal-card-body">
-                        <b-field label="Email">
-                            <b-input
-                                type="email"
-                                :value="email"
-                                placeholder="Your email"
-                                required>
-                            </b-input>
-                        </b-field>
-
-                        <b-field label="Password">
-                            <b-input
-                                type="password"
-                                :value="password"
-                                password-reveal
-                                placeholder="Your password"
-                                required>
-                            </b-input>
-                        </b-field>
-
-                        <b-checkbox>Remember me</b-checkbox>
-                    </section>
-                    <footer class="modal-card-foot">
-                        <b-button
-                            label="Close"
-                            @click="$emit('close')" />
-                        <b-button
-                            label="Login"
-                            type="is-primary" />
-                    </footer>
-                </div>
-            </form>
-        `,
-};
-
+import axios from "axios";
 export default {
-  components: {
-    ModalForm,
-  },
   data() {
     return {
-      isComponentModalActive: false,
-      formProps: {
-        email: "evan@you.com",
-        password: "testing",
-      },
+      jugadores: null,
+      nombre: "",
+      borrar: "",
     };
+  },
+  beforeMount() {
+    this.getJugador();
+  },
+  methods: {
+    async getJugador() {
+      const { data } = await axios.get("http://localhost:3000/jugador/get");
+      this.jugadores = data.jugadores;
+    },
+    async addJugador() {
+      const { data } = await axios.post("http://localhost:3000/jugador/add", {
+        nombre: this.nombre,
+      });
+      this.jugadores = data.jugadores;
+    },
+    async deleteJugador() {
+      const { data } = await axios.post(
+        "http://localhost:3000/jugador/delete",
+        { nombre: this.borrar }
+      );
+      this.jugadores = data.jugadores;
+    },
   },
 };
 </script>

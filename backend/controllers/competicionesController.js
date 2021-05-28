@@ -8,7 +8,10 @@ let driver = neo4j.driver(
 module.exports = {
   //Añadir una competición
   add: (req, res) => {
+    
     let nombreCompeticion = req.body.nombre;
+
+
     let session3 = driver.session();
     session3
       .run(
@@ -50,11 +53,13 @@ module.exports = {
   }),
   //Añadir una competición a un equipo
   addEquipo: (req, res) => {
+    
+    
     let session4 = driver.session();
     let nombreCompeticion = req.body.nombreCompeticion;
     let nombreEquipo = req.body.nombreEquipo;
-    console.log({nombreEquipo});
-    console.log({nombreCompeticion});
+
+    
     session4
       .run(
         "MATCH(a:equipo {nombre: $nombreEquipoParam}), (b:competicion{nombre: $nombreCompeticionParam}) MERGE (a)-[r:COMPITE]-(b) RETURN a,b",

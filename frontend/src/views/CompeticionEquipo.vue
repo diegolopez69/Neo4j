@@ -29,14 +29,14 @@ export default {
     };
   },
   beforeMount() {
-    this.postCompeticionEquipo();
   },
   methods: {
     async postCompeticionEquipo() {
       const {
         data,
       } = await axios.post("http://localhost:3000/competicion/equipo/add", {
-        nombre: this.nombre,
+        nombre: this.nombreCompeticion,
+        nombre: this.nombreEquipo,
       });
       this.competiciones = data.competiciones;
     },
