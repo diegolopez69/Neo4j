@@ -53,6 +53,8 @@ module.exports = {
     let session4 = driver.session();
     let nombreCompeticion = req.body.nombreCompeticion;
     let nombreEquipo = req.body.nombreEquipo;
+    console.log({nombreEquipo});
+    console.log({nombreCompeticion});
     session4
       .run(
         "MATCH(a:equipo {nombre: $nombreEquipoParam}), (b:competicion{nombre: $nombreCompeticionParam}) MERGE (a)-[r:COMPITE]-(b) RETURN a,b",
