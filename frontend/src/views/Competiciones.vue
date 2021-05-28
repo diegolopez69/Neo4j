@@ -2,22 +2,22 @@
   <section>
     <h3 class="title is-3">Agregar competición</h3>
     <b-field label="Nombre de la competición">
-      <b-input></b-input>
+      <b-input v-model="nombre"></b-input>
       <!-- <b-input v-model="name"></b-input> -->
     </b-field>
 
     <b-field label="Mensaje">
       <b-input maxlength="200" type="textarea"></b-input>
     </b-field>
-    <b-button label="Agregar" type="is-primary" icon-right="check" />
+    <b-button label="Agregar" type="is-primary" icon-right="check" @click="addCompeticiones()"/>
 
     <hr />
     <h3 class="title is-3">Eliminar competición</h3>
     <b-field label="Nombre de la competición">
-      <b-input></b-input>
+      <b-input v-model="borrar"></b-input>
       <!-- <b-input v-model="name"></b-input> -->
     </b-field>
-    <b-button label="Eliminar competición" type="is-primary"/>
+    <b-button label="Eliminar competición" type="is-primary" @click="deleteCompeticiones();"/>
     <hr />
 
     <div
@@ -45,13 +45,13 @@
     export default {
         data() {
             return {
-                competiciones: null
+                competiciones: null,
+                nombre: "",
+                borrar:"",
             }
         },
         beforeMount() {
             this.getCompeticiones();
-            this.addCompeticiones();
-            this.deleteCompeticiones();
         },
         methods: {
             async getCompeticiones() {
@@ -63,13 +63,13 @@
             async addCompeticiones() {
                 const {
                     data
-                } = await axios.post("http://localhost:3000/competicion/add");
+                } = await axios.post("http://localhost:3000/competicion/add", {nombre: this.nombre});
                 this.competiciones = data.competiciones;
             },
             async deleteCompeticiones() {
                 const {
                     data
-                } = await axios.post("http://localhost:3000/competicion/delete");
+                } = await axios.post("http://localhost:3000/competicion/delete", {nombre: this.borrar});
                 this.competiciones = data.competiciones;
             },
         }

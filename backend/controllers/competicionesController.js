@@ -12,7 +12,7 @@ module.exports = {
             .then(function (result) {
                 rabbitPublisher.publishMessage('Competición añadida');
                 session3.close();
-                res.redirect('/');
+                //res.redirect('/');
 
             })
             .catch(function (err) {
@@ -23,32 +23,29 @@ module.exports = {
     },
 
     //Buscar todas las competiciones
-    get: (req, res) => {
-        let session10 = driver.session();
-        session10
-            .run('match (n:competicion) return n')
-            .then(function (result) {
-                rabbitPublisher.publishMessage('búsqueda de todas las competiciones');
-                session10.close();
-                //res.redirect('/');
-                console.log('Método de buscar');
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
-
-        res.redirect('/');
-
+    get:getCompeticiones = async (req, res) => {
+        let temp = [];
+        try {
+        const tempSession = driver.session();
+        const {records: data} = await tempSession.run('MATCH(n:competicion) RETURN n');
+        rabbitPublisher.publishMessage('competición añadida');
+        temp = data.map((record) => {
+            return {
+                id: record._fields[0].identity.low,
+                nombre: record._fields[0].properties.nombre
+            };
+        });
+        res.send({competiciones: temp});
+        } catch (exception) {
+            console.log("fallo por esto: ", exception)
+        }
+        return temp;
     },
     //Añadir una competición a un equipo
     addEquipo: (req, res) => {
         let session4 = driver.session();
         let nombreCompeticion = req.body.nombreCompeticion;
         let nombreEquipo = req.body.nombreEquipo;
-
-
-        console.log({ nombreCompeticion });
-        console.log({ nombreEquipo });
         session4
             .run('MATCH(a:equipo {nombre:{nombreEquipoParam}}), (b:competicion{nombre:{nombreCompeticionParam}}) MERGE (a)-[r:COMPITE]-(b) RETURN a,b', { nombreEquipoParam: nombreEquipo, nombreCompeticionParam: nombreCompeticion })
             .then(function (result) {
@@ -62,22 +59,21 @@ module.exports = {
     },
 
     //Eliminar una competición
-    delete: (req, res) => {
+    delete: (req, res)=>{  
         let nombreCompeticion = req.body.nombre;
-        let session6 = driver.session();
-        session6
-            .run('MATCH (n:competicion {nombre:{nombreCompeticionParam}}) DELETE n.nombre', { nombreCompeticionParam: nombreCompeticion })
-            .then(function (result) {
-                rabbitPublisher.publishMessage('Competición eliminada');
-                session6.close();
-                res.redirect('/');
-
+        let session8 = driver.session();
+        session8
+            .run('MATCH(n:competicion {nombre: $nombreCompeticionParam}) DETACH DELETE n', {nombreCompeticionParam:nombreCompeticion})
+            .then(function(result){
+                rabbitPublisher.publishMessage('competición eliminado');
+                session8.close();
+                //res.redirect('/');
+                
             })
-            .catch(function (err) {
+            .catch(function(err){
                 console.log(err);
             });
-
+    
         res.redirect('/');
-
-    }
+    },
 }
