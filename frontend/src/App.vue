@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar v-if="route.name !== 'Login'"/>
+    <Navbar v-if="route.name !== 'Login'" />
     <div class="container">
       <router-view></router-view>
     </div>
@@ -8,19 +8,17 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue"
+import Navbar from "@/components/Navbar.vue";
 export default {
   name: "App",
   computed: {
-        route() {
-            return this.$route;
-        }
+    route() {
+      return this.$route;
     },
-  methods: {
-    
   },
+  methods: {},
   components: {
-    Navbar
-  }
+    Navbar,
+  },
 };
 </script>

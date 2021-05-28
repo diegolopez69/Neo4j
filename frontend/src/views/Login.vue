@@ -1,47 +1,44 @@
 <template>
-    <section>
-       <form action="">
-                <div class="modal-card" style="width: auto">
-                    <header class="modal-card-head">
-                        <p class="modal-card-title">Login</p>
-                        
-                    </header>
-                    <section class="modal-card-body">
-                        <b-field label="Usuario">
-                            <b-input
-                                type="text"
-                                :value="text"
-                                placeholder="Introduce tu usuario"
-                                required>
-                            </b-input>
-                        </b-field>
+  <section>
+    <form action="">
+      <div class="modal-card" style="width: auto">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Login</p>
+        </header>
+        <section class="modal-card-body">
+          <b-field label="Usuario">
+            <b-input
+              type="text"
+              :value="text"
+              placeholder="Introduce tu usuario"
+              required
+            >
+            </b-input>
+          </b-field>
 
-                        <b-field label="Contraseña">
-                            <b-input
-                                type="password"
-                                :value="password"
-                                password-reveal
-                                placeholder="Introduce tu contraseña"
-                                required>
-                            </b-input>
-                        </b-field>
-
-                        
-                    </section>
-                    <footer class="modal-card-foot">
-                        <b-button
-                            label="Login"
-                            type="is-primary" />
-                    </footer>
-                </div>
-            </form>
-    </section>
+          <b-field label="Contraseña">
+            <b-input
+              type="password"
+              :value="password"
+              password-reveal
+              placeholder="Introduce tu contraseña"
+              required
+            >
+            </b-input>
+          </b-field>
+        </section>
+        <footer class="modal-card-foot">
+          <b-button label="Login" type="is-primary" />
+        </footer>
+      </div>
+    </form>
+  </section>
 </template>
 
 <script>
-    const ModalForm = {
-        props: ['email', 'password', 'canCancel'],
-        template: `
+const ModalForm = {
+  props: ["email", "password", "canCancel"],
+  template: `
             <form action="">
                 <div class="modal-card" style="width: auto">
                     <header class="modal-card-head">
@@ -83,21 +80,21 @@
                     </footer>
                 </div>
             </form>
-        `
-    }
+        `,
+};
 
-    export default {
-        components: {
-            ModalForm
-        },
-        data() {
-            return {
-                isComponentModalActive: false,
-                formProps: {
-                    email: 'evan@you.com',
-                    password: 'testing'
-                }
-            }
-        }
-    }
+export default {
+  components: {
+    ModalForm,
+  },
+  data() {
+    return {
+      isComponentModalActive: false,
+      formProps: {
+        email: "evan@you.com",
+        password: "testing",
+      },
+    };
+  },
+};
 </script>

@@ -9,7 +9,12 @@
     <b-field label="Mensaje">
       <b-input maxlength="200" type="textarea"></b-input>
     </b-field>
-    <b-button label="Agregar" type="is-primary" icon-right="check" @click="addCompeticiones()"/>
+    <b-button
+      label="Agregar"
+      type="is-primary"
+      icon-right="check"
+      @click="addCompeticiones()"
+    />
 
     <hr />
     <h3 class="title is-3">Eliminar competición</h3>
@@ -17,7 +22,11 @@
       <b-input v-model="borrar"></b-input>
       <!-- <b-input v-model="name"></b-input> -->
     </b-field>
-    <b-button label="Eliminar competición" type="is-primary" @click="deleteCompeticiones();"/>
+    <b-button
+      label="Eliminar competición"
+      type="is-primary"
+      @click="deleteCompeticiones()"
+    />
     <hr />
 
     <div
@@ -38,40 +47,39 @@
   </section>
 </template>
 
-
-
 <script>
-    import axios from "axios";
-    export default {
-        data() {
-            return {
-                competiciones: null,
-                nombre: "",
-                borrar:"",
-            }
-        },
-        beforeMount() {
-            this.getCompeticiones();
-        },
-        methods: {
-            async getCompeticiones() {
-                const {
-                    data
-                } = await axios.get("http://localhost:3000/competicion/get");
-                this.competiciones = data.competiciones;
-            },
-            async addCompeticiones() {
-                const {
-                    data
-                } = await axios.post("http://localhost:3000/competicion/add", {nombre: this.nombre});
-                await this.getCompeticiones();
-            },
-            async deleteCompeticiones() {
-                const {
-                    data
-                } = await axios.post("http://localhost:3000/competicion/delete", {nombre: this.borrar});
-                 await this.getCompeticiones();
-            },
-        }
-    }
+import axios from "axios";
+export default {
+  data() {
+    return {
+      competiciones: null,
+      nombre: "",
+      borrar: "",
+    };
+  },
+  beforeMount() {
+    this.getCompeticiones();
+  },
+  methods: {
+    async getCompeticiones() {
+      const { data } = await axios.get("http://localhost:3000/competicion/get");
+      this.competiciones = data.competiciones;
+    },
+    async addCompeticiones() {
+      const { data } = await axios.post(
+        "http://localhost:3000/competicion/add",
+        { nombre: this.nombre }
+      );
+      await this.getCompeticiones();
+    },
+    async deleteCompeticiones() {
+      const {
+        data,
+      } = await axios.post("http://localhost:3000/competicion/delete", {
+        nombre: this.borrar,
+      });
+      await this.getCompeticiones();
+    },
+  },
+};
 </script>
