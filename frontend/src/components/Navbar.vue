@@ -26,6 +26,9 @@
           Equipos - Jugadores
         </b-navbar-item>
       </b-navbar-dropdown>
+      <b-navbar-item tag="router-link" :to="{ path: '/usuarios' }">
+        Usuarios
+      </b-navbar-item>
     </template>
 
     <template #end>

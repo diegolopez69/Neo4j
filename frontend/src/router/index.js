@@ -7,6 +7,7 @@ import Equipos from "../views/Equipos.vue";
 import CompeticionEquipo from "../views/CompeticionEquipo.vue";
 import EquipoJugador from "../views/EquipoJugador.vue";
 import Login from "../views/Login.vue";
+import Usuarios from "../views/Usuarios.vue";
 
 Vue.use(VueRouter);
 
@@ -45,6 +46,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login
+  },
+  {
+    path: "/usuarios",
+    name: "Usuarios",
+    component: Usuarios
   },
 ];
 
