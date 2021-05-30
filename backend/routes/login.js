@@ -6,5 +6,6 @@ const loginController = require("./../controllers/loginController");
 router.post("/usuario", loginController.addUsuario);
 router.post("/contra", loginController.addContraseña);
 router.post("/usuario/contra", loginController.addUsuarioContraseña);
+router.get("/entrar", loginController.entrar);
 
 module.exports = router;

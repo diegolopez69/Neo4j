@@ -9,9 +9,10 @@
           <b-field label="Usuario">
             <b-input
               type="text"
-              :value="text"
+              
               placeholder="Introduce tu usuario"
               required
+              v-model="nombre"
             >
             </b-input>
           </b-field>
@@ -19,16 +20,17 @@
           <b-field label="Contraseña">
             <b-input
               type="password"
-              :value="password"
+              
               password-reveal
               placeholder="Introduce tu contraseña"
               required
+              v-model="contra"
             >
             </b-input>
           </b-field>
         </section>
         <footer class="modal-card-foot">
-          <b-button label="Login" type="is-primary" />
+          <b-button label="Login" type="is-primary" @click="entrar()"/>
         </footer>
       </div>
     </form>
@@ -42,30 +44,22 @@ export default {
     return {
       jugadores: null,
       nombre: "",
-      borrar: "",
+      contra: "",
     };
   },
   beforeMount() {
-    this.getJugador();
+    
   },
   methods: {
-    async getJugador() {
-      const { data } = await axios.get("http://localhost:3000/jugador/get");
-      this.jugadores = data.jugadores;
-    },
-    async addJugador() {
-      const { data } = await axios.post("http://localhost:3000/jugador/add", {
-        nombre: this.nombre,
-      });
-      this.jugadores = data.jugadores;
-    },
-    async deleteJugador() {
-      const { data } = await axios.post(
-        "http://localhost:3000/jugador/delete",
-        { nombre: this.borrar }
-      );
-      this.jugadores = data.jugadores;
-    },
+    async entrar() {
+      const { data } = await axios.get("http://localhost:3000/login/entrar");
+      if(data.login){
+        console.log('lets see if is defined',this.$router);
+        this.$router.push('/');
+      }else{
+        console.log('usuario o contraseña incorrectos');
+      }
+    }
   },
 };
 </script>

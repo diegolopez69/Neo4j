@@ -5,6 +5,12 @@ let driver = neo4j.driver(
   neo4j.auth.basic("neo4j", "test")
 );
 
+const colores = {
+  competicion:'red',
+  equipo:'yellow',
+  jugador:'blue'
+}
+
 module.exports = { 
   //Buscar a todos los jugadores
   list:async (req, res) => {
@@ -18,7 +24,8 @@ module.exports = {
       temp = data.map((record) => {
         return {
           id: record._fields[0].identity.low,
-          nombre: record._fields[0].properties.nombre,
+          name: record._fields[0].properties.nombre,
+          _color: colores[record._fields[0].labels[0]]
         };
       });
       res.send({nodos:temp});

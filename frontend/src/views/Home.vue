@@ -36,17 +36,7 @@ export default {
         { id: 8 },
         { id: 9 }
       ],
-      links: [
-        { sid: 1, tid: 2 },
-        { sid: 2, tid: 8 },
-        { sid: 3, tid: 4,  _svgAttrs:{'stroke-width':8,opacity:1},name:'custom link' },
-        { sid: 4, tid: 5 },
-        { sid: 5, tid: 6 },
-        { sid: 7, tid: 8 },
-        { sid: 5, tid: 8 },
-        { sid: 3, tid: 8 },
-        { sid: 7, tid: 9 }
-      ],
+      links: [],
       nodeSize:20,
       canvas:true
     }
