@@ -38,7 +38,7 @@ module.exports = {
       const { records: data } = await tempSession.run(
         "MATCH(n:competicion) RETURN n"
       );
-      rabbitPublisher.publishMessage("competición añadida");
+      rabbitPublisher.publishMessage("búsqueda de todas las competiciones");
       temp = data.map((record) => {
         return {
           id: record._fields[0].identity.low,

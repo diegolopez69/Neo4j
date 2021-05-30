@@ -56,7 +56,7 @@ module.exports = {
       const { records: data } = await tempSession.run(
         "MATCH(n:jugador) RETURN n"
       );
-      rabbitPublisher.publishMessage("jugador añadido");
+      rabbitPublisher.publishMessage("búsqueda de todos los jugadores");
       temp = data.map((record) => {
         return {
           id: record._fields[0].identity.low,

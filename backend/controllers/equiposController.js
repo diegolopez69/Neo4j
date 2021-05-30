@@ -33,6 +33,7 @@ module.exports = {
       const { records: data } = await tempSession.run(
         "MATCH(n:equipo) RETURN n"
       );
+      rabbitPublisher.publishMessage("búsqueda de todos los equipos");
       temp = data.map((record) => {
         return {
           id: record._fields[0].identity.low,
