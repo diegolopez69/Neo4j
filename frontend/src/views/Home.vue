@@ -7,10 +7,21 @@
 
 <script>
 import D3Network from 'vue-d3-network'
+import axios from 'axios';
 export default {
   name: "Home",
   components: {
     D3Network
+  },
+  beforeMount() {
+    this.getNodos();
+  },
+  methods: {
+    async getNodos() {
+      const {data} = await axios.get("http://localhost:3000/grafo");
+      console.log('result in frontend',data.nodos);
+      this.nodes = data.nodos;
+    }
   },
   data () {
     return {
