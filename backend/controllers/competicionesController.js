@@ -58,7 +58,8 @@ module.exports = {
     let session4 = driver.session();
     let nombreCompeticion = req.body.nombreCompeticion;
     let nombreEquipo = req.body.nombreEquipo;
-
+    console.log({nombreEquipo});
+    console.log({nombreCompeticion});
     
     session4
       .run(
@@ -70,6 +71,7 @@ module.exports = {
       )
       .then(function (result) {
         session4.close();
+        console.log('Relación de competición equipo éxitosa!');
         rabbitPublisher.publishMessage("Equipo añadido a una competición");
       })
       .catch(function (err) {

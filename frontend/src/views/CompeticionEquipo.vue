@@ -35,8 +35,8 @@ export default {
       const {
         data,
       } = await axios.post("http://localhost:3000/competicion/equipo/add", {
-        nombre: this.nombreCompeticion,
-        nombre: this.nombreEquipo,
+        nombreCompeticion: this.nombreCompeticion,
+        nombreEquipo: this.nombreEquipo,
       });
       this.competiciones = data.competiciones;
     },
