@@ -5,10 +5,6 @@
       <b-input v-model="nombre"></b-input>
       <!-- <b-input v-model="name"></b-input> -->
     </b-field>
-
-    <b-field label="Mensaje">
-      <b-input maxlength="200" type="textarea"></b-input>
-    </b-field>
     <b-button
       label="Agregar"
       type="is-primary"

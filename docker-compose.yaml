@@ -1,28 +1,5 @@
 version: '3'
 services: 
-  #backend: 
-   # build: ./backend
-   # command: node app
-    #volumes: 
-     # - "./backend:/usr/src/app"
-    #ports:
-     # - "3000:3000"
-    #networks:
-     # - myytnetwork
-   # environment: 
-   #   - MESSAGE_QUEUE=amqp://rabbitmq
-   # links:
-   #   - rabbitmq
-
-  #frontend:
-    #build: 
-      #context: .
-      #ports: 
-       # - 8080:8080
-      #volumes: 
-        #- './src:/app/src'
-      #command: /bin/sh -c "npm run serve"
-
   neo4j: 
     image: neo4j:3.5
     ports:
