@@ -1,12 +1,11 @@
-const Router = require('express').Router
+const Router = require("express").Router;
 const router = new Router();
 
-const CompeticionesController = require('./../controllers/competicionesController');
+const CompeticionesController = require("./../controllers/competicionesController");
 
-router.post('/add',CompeticionesController.add);
-router.get('/get',CompeticionesController.get);
-router.post('/equipo/add',CompeticionesController.addEquipo);
-router.post('/delete',CompeticionesController.addEquipo);
-
+router.post("/add", CompeticionesController.add);
+router.post("/equipo/add", CompeticionesController.addEquipo);
+router.post("/delete", CompeticionesController.delete);
+router.get("/get", CompeticionesController.get);
 
 module.exports = router;

@@ -6,17 +6,17 @@ let driver = neo4j.driver(
 );
 
 module.exports = {
-  //Añadir un equipo
+  //Añadir un usuario
   add: (req, res) => {
-    let nombreEquipo = req.body.nombre;
-    let session2 = driver.session();
-    session2
-      .run("CREATE(n:equipo {nombre: $nombreEquipoParam}) RETURN n.nombre", {
-        nombreEquipoParam: nombreEquipo,
+    let nombreUsuario = req.body.nombre;
+    let session13 = driver.session();
+    session13
+      .run("CREATE(n:usuario {nombre: $nombreUsuarioParam}) RETURN n.nombre", {
+        nombreUsuarioParam: nombreUsuario,
       })
       .then(function (result) {
-        rabbitPublisher.publishMessage("equipo añadido");
-        session2.close();
+        rabbitPublisher.publishMessage("usuario añadido");
+        session13.close();
         //res.redirect('/');
       })
       .catch(function (err) {
@@ -25,38 +25,41 @@ module.exports = {
 
     res.redirect("/");
   },
-  //Buscar a todos los equipos
-  get: (getEquipos = async (req, res) => {
+
+
+  //Buscar a todos los usuarios
+  get: (getUsuarios = async (req, res) => {
     let temp = [];
     try {
       const tempSession = driver.session();
       const { records: data } = await tempSession.run(
-        "MATCH(n:equipo) RETURN n"
+        "MATCH(n:usuario) RETURN n"
       );
-      rabbitPublisher.publishMessage("búsqueda de todos los equipos");
+      rabbitPublisher.publishMessage("usuario añadido");
       temp = data.map((record) => {
         return {
           id: record._fields[0].identity.low,
           nombre: record._fields[0].properties.nombre,
         };
       });
-      res.send({ equipos: temp });
+      res.send({ usuarios: temp });
     } catch (exception) {
       console.log("fallo por esto: ", exception);
     }
     return temp;
   }),
-  //Borrar un equipo
+
+  //Borrar un usuario
   delete: (req, res) => {
-    let nombreEquipo = req.body.nombre;
-    let session5 = driver.session();
-    session5
-      .run("MATCH(n:equipo {nombre: $nombreEquipoParam}) DETACH DELETE n", {
-        nombreEquipoParam: nombreEquipo,
+    let nombreUsuario = req.body.nombre;
+    let session15 = driver.session();
+    session15
+      .run("MATCH(n:usuario {nombre: $nombreUsuarioParam}) DETACH DELETE n", {
+        nombreUsuarioParam: nombreUsuario,
       })
       .then(function (result) {
-        rabbitPublisher.publishMessage("equipo eliminado");
-        session5.close();
+        rabbitPublisher.publishMessage("usuario eliminado");
+        session15.close();
         //res.redirect('/');
       })
       .catch(function (err) {

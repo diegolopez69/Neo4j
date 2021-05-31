@@ -1,42 +1,57 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Login from "../views/Login-view.vue";
-import Dashboard from "../views/Dashboard-view.vue";
-import Passwords from "../views/Passwords-view.vue";
-import SharedPasswords from "../views/SharedPasswords-view.vue";
+import Home from "../views/Home.vue";
+import Jugadores from "../views/Jugadores.vue";
+import Competiciones from "../views/Competiciones.vue";
+import Equipos from "../views/Equipos.vue";
+import CompeticionEquipo from "../views/CompeticionEquipo.vue";
+import EquipoJugador from "../views/EquipoJugador.vue";
+import Login from "../views/Login.vue";
+import Usuarios from "../views/Usuarios.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
+    name: "Home",
+    component: Home
+  },
+  {
+    path: "/competiciones",
+    name: "Competiciones",
+    component: Competiciones
+  },
+  {
+    path: "/equipos",
+    name: "Equipos",
+    component: Equipos
+  },
+  {
+    path: "/jugadores",
+    name: "Jugadores",
+    component: Jugadores
+  },
+  {
+    path: "/competicionEquipo",
+    name: "CompeticionEquipo",
+    component: CompeticionEquipo
+  },
+  {
+    path: "/equipoJugador",
+    name: "EquipoJugador",
+    component: EquipoJugador
+  },
+  {
+    path: "/login",
     name: "Login",
     component: Login
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    path: "/usuarios",
+    name: "Usuarios",
+    component: Usuarios
   },
-  {
-    path: "/dashboard",
-    name: "Dashboard",
-    component: Dashboard
-  },
-  {
-    path: "/passwords",
-    name: "Passwords",
-    component: Passwords
-  },
-  {
-    path: "/sharedpasswords",
-    name: "SharedPasswords",
-    component: SharedPasswords
-  }
 ];
 
 const router = new VueRouter({
